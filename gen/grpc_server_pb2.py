@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='distance_tracking',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x11grpc_server.proto\x12\x11\x64istance_tracking\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"9\n\rDistanceValue\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x10\n\x08\x64istance\x18\x03 \x01(\x05\x32\xb7\x01\n\x0e\x44istanceServer\x12P\n\x0eregisterClient\x12\x1d.distance_tracking.ClientInfo\x1a\x1d.distance_tracking.ServerInfo\"\x00\x12S\n\x0cgetDistances\x12\x1d.distance_tracking.ClientInfo\x1a .distance_tracking.DistanceValue\"\x00\x30\x01\x62\x06proto3')
+        '\n\x11grpc_server.proto\x12\x11\x64istance_tracking\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"J\n\rDistanceValue\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x0f\n\x07\x65lapsed\x18\x03 \x01(\x03\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x32\xb7\x01\n\x0e\x44istanceServer\x12P\n\x0eregisterClient\x12\x1d.distance_tracking.ClientInfo\x1a\x1d.distance_tracking.ServerInfo\"\x00\x12S\n\x0cgetDistances\x12\x1d.distance_tracking.ClientInfo\x1a .distance_tracking.DistanceValue\"\x00\x30\x01\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -52,6 +52,7 @@ _CLIENTINFO = _descriptor.Descriptor(
     serialized_end=66,
 )
 
+
 _SERVERINFO = _descriptor.Descriptor(
     name='ServerInfo',
     full_name='distance_tracking.ServerInfo',
@@ -82,6 +83,7 @@ _SERVERINFO = _descriptor.Descriptor(
     serialized_end=94,
 )
 
+
 _DISTANCEVALUE = _descriptor.Descriptor(
     name='DistanceValue',
     full_name='distance_tracking.DistanceValue',
@@ -104,8 +106,15 @@ _DISTANCEVALUE = _descriptor.Descriptor(
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='distance', full_name='distance_tracking.DistanceValue.distance', index=2,
-            number=3, type=5, cpp_type=1, label=1,
+            name='elapsed', full_name='distance_tracking.DistanceValue.elapsed', index=2,
+            number=3, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            options=None),
+        _descriptor.FieldDescriptor(
+            name='distance', full_name='distance_tracking.DistanceValue.distance', index=3,
+            number=4, type=5, cpp_type=1, label=1,
             has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
@@ -123,7 +132,7 @@ _DISTANCEVALUE = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=96,
-    serialized_end=153,
+    serialized_end=170,
 )
 
 DESCRIPTOR.message_types_by_name['ClientInfo'] = _CLIENTINFO
@@ -150,6 +159,7 @@ DistanceValue = _reflection.GeneratedProtocolMessageType('DistanceValue', (_mess
     # @@protoc_insertion_point(class_scope:distance_tracking.DistanceValue)
 ))
 _sym_db.RegisterMessage(DistanceValue)
+
 
 try:
     # THESE ELEMENTS WILL BE DEPRECATED.

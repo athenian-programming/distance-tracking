@@ -1,3 +1,4 @@
+import copy
 import logging
 import socket
 import time
@@ -15,38 +16,34 @@ logger = logging.getLogger(__name__)
 
 class DistanceClient(GenericClient):
     def __init__(self, hostname):
-        super(DistanceClient, self).__init__(hostname, "distance client")
+        super(DistanceClient, self).__init__(hostname, desc="distance client")
         self.__ready = Event()
-        self.__id = -1
-        self.__ts = -1
-        self.__distance = -1
+        self.__currval = None
 
     def _mark_ready(self):
         self.__ready.set()
 
     def _get_values(self, pause_secs=2.0):
-        channel = grpc.insecure_channel(self._hostname)
+        channel = grpc.insecure_channel(self.hostname)
         stub = DistanceServerStub(channel)
         while not self.stopped:
-            logger.info("Connecting to gRPC server at {0}...".format(self._hostname))
+            logger.info("Connecting to gRPC server at {0}...".format(self.hostname))
             try:
                 client_info = ClientInfo(info="{0} client".format(socket.gethostname()))
                 server_info = stub.registerClient(client_info)
             except BaseException as e:
-                logger.error("Failed to connect to gRPC server at {0} [{1}]".format(self._hostname, e))
+                logger.error("Failed to connect to gRPC server at {0} [{1}]".format(self.hostname, e))
                 time.sleep(pause_secs)
                 continue
 
-            logger.info("Connected to gRPC server at {0} [{1}]".format(self._hostname, server_info.info))
+            logger.info("Connected to gRPC server at {0} [{1}]".format(self.hostname, server_info.info))
             try:
                 for val in stub.getDistances(client_info):
                     with self.value_lock:
-                        self.__id = val.id
-                        self.__ts = val.ts
-                        self.__distance = val.distance
+                        self.__currval = copy.deepcopy(val)
                     self._mark_ready()
             except BaseException as e:
-                logger.info("Disconnected from gRPC server at {0} [{1}]".format(self._hostname, e))
+                logger.info("Disconnected from gRPC server at {0} [{1}]".format(self.hostname, e))
                 time.sleep(pause_secs)
 
     # Blocking
@@ -57,4 +54,11 @@ class DistanceClient(GenericClient):
             with self.value_lock:
                 if self.__ready.is_set() and not self.stopped:
                     self.__ready.clear()
-                    return {"id": self.__id, "ts": self.__ts, "distance": self.__distance}
+                    return self.__currval
+
+
+if __name__ == "__main__":
+    distances = DistanceClient("127.0.0.1").start()
+
+    while True:
+        print("Read distance:\n{0}".format(distances.get_distance()))
