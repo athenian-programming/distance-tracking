@@ -47,7 +47,7 @@ class DistanceTracker(object):
 
         mm = int(val_str)
 
-        if self.__oor_upper > 0 and mm <= 0 or mm > 2000:
+        if self.__oor_upper > 0 and (mm <= 0 or mm > self.__oor_upper):
             # Filter out bad data
             self.__oor_values.mark()
             if self.__oor_values.is_out_of_range(self.__oor_time):

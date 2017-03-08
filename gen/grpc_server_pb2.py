@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='distance_tracking',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x11grpc_server.proto\x12\x11\x64istance_tracking\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"J\n\rDistanceValue\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x0f\n\x07\x65lapsed\x18\x03 \x01(\x03\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x32\xb7\x01\n\x0e\x44istanceServer\x12P\n\x0eregisterClient\x12\x1d.distance_tracking.ClientInfo\x1a\x1d.distance_tracking.ServerInfo\"\x00\x12S\n\x0cgetDistances\x12\x1d.distance_tracking.ClientInfo\x1a .distance_tracking.DistanceValue\"\x00\x30\x01\x62\x06proto3')
+        '\n\x11grpc_server.proto\x12\x11\x64istance_tracking\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"E\n\x08\x44istance\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x0f\n\x07\x65lapsed\x18\x03 \x01(\x03\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x32\xb2\x01\n\x0e\x44istanceServer\x12P\n\x0eregisterClient\x12\x1d.distance_tracking.ClientInfo\x1a\x1d.distance_tracking.ServerInfo\"\x00\x12N\n\x0cgetDistances\x12\x1d.distance_tracking.ClientInfo\x1a\x1b.distance_tracking.Distance\"\x00\x30\x01\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -83,37 +83,36 @@ _SERVERINFO = _descriptor.Descriptor(
     serialized_end=94,
 )
 
-
-_DISTANCEVALUE = _descriptor.Descriptor(
-    name='DistanceValue',
-    full_name='distance_tracking.DistanceValue',
+_DISTANCE = _descriptor.Descriptor(
+    name='Distance',
+    full_name='distance_tracking.Distance',
     filename=None,
     file=DESCRIPTOR,
     containing_type=None,
     fields=[
         _descriptor.FieldDescriptor(
-            name='id', full_name='distance_tracking.DistanceValue.id', index=0,
+            name='id', full_name='distance_tracking.Distance.id', index=0,
             number=1, type=5, cpp_type=1, label=1,
             has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='ts', full_name='distance_tracking.DistanceValue.ts', index=1,
+            name='ts', full_name='distance_tracking.Distance.ts', index=1,
             number=2, type=3, cpp_type=2, label=1,
             has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='elapsed', full_name='distance_tracking.DistanceValue.elapsed', index=2,
+            name='elapsed', full_name='distance_tracking.Distance.elapsed', index=2,
             number=3, type=3, cpp_type=2, label=1,
             has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='distance', full_name='distance_tracking.DistanceValue.distance', index=3,
+            name='distance', full_name='distance_tracking.Distance.distance', index=3,
             number=4, type=5, cpp_type=1, label=1,
             has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
@@ -132,12 +131,12 @@ _DISTANCEVALUE = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=96,
-    serialized_end=170,
+    serialized_end=165,
 )
 
 DESCRIPTOR.message_types_by_name['ClientInfo'] = _CLIENTINFO
 DESCRIPTOR.message_types_by_name['ServerInfo'] = _SERVERINFO
-DESCRIPTOR.message_types_by_name['DistanceValue'] = _DISTANCEVALUE
+DESCRIPTOR.message_types_by_name['Distance'] = _DISTANCE
 
 ClientInfo = _reflection.GeneratedProtocolMessageType('ClientInfo', (_message.Message,), dict(
     DESCRIPTOR=_CLIENTINFO,
@@ -153,12 +152,12 @@ ServerInfo = _reflection.GeneratedProtocolMessageType('ServerInfo', (_message.Me
 ))
 _sym_db.RegisterMessage(ServerInfo)
 
-DistanceValue = _reflection.GeneratedProtocolMessageType('DistanceValue', (_message.Message,), dict(
-    DESCRIPTOR=_DISTANCEVALUE,
+Distance = _reflection.GeneratedProtocolMessageType('Distance', (_message.Message,), dict(
+    DESCRIPTOR=_DISTANCE,
     __module__='grpc_server_pb2'
-    # @@protoc_insertion_point(class_scope:distance_tracking.DistanceValue)
+    # @@protoc_insertion_point(class_scope:distance_tracking.Distance)
 ))
-_sym_db.RegisterMessage(DistanceValue)
+_sym_db.RegisterMessage(Distance)
 
 
 try:
@@ -187,7 +186,7 @@ try:
             self.getDistances = channel.unary_stream(
                 '/distance_tracking.DistanceServer/getDistances',
                 request_serializer=ClientInfo.SerializeToString,
-                response_deserializer=DistanceValue.FromString,
+                response_deserializer=Distance.FromString,
             )
 
 
@@ -214,7 +213,7 @@ try:
             'getDistances': grpc.unary_stream_rpc_method_handler(
                 servicer.getDistances,
                 request_deserializer=ClientInfo.FromString,
-                response_serializer=DistanceValue.SerializeToString,
+                response_serializer=Distance.SerializeToString,
             ),
         }
         generic_handler = grpc.method_handlers_generic_handler(
@@ -264,7 +263,7 @@ try:
             ('distance_tracking.DistanceServer', 'registerClient'): ClientInfo.FromString,
         }
         response_serializers = {
-            ('distance_tracking.DistanceServer', 'getDistances'): DistanceValue.SerializeToString,
+            ('distance_tracking.DistanceServer', 'getDistances'): Distance.SerializeToString,
             ('distance_tracking.DistanceServer', 'registerClient'): ServerInfo.SerializeToString,
         }
         method_implementations = {
@@ -292,7 +291,7 @@ try:
             ('distance_tracking.DistanceServer', 'registerClient'): ClientInfo.SerializeToString,
         }
         response_deserializers = {
-            ('distance_tracking.DistanceServer', 'getDistances'): DistanceValue.FromString,
+            ('distance_tracking.DistanceServer', 'getDistances'): Distance.FromString,
             ('distance_tracking.DistanceServer', 'registerClient'): ServerInfo.FromString,
         }
         cardinalities = {

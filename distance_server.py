@@ -7,8 +7,8 @@ from grpc_support import GenericServer
 from utils import current_time_millis
 from utils import setup_logging
 
+from gen.grpc_server_pb2 import Distance
 from gen.grpc_server_pb2 import DistanceServerServicer
-from gen.grpc_server_pb2 import DistanceValue
 from gen.grpc_server_pb2 import ServerInfo
 from gen.grpc_server_pb2 import add_DistanceServerServicer_to_server
 
@@ -49,10 +49,10 @@ class DistanceServer(DistanceServerServicer, GenericServer):
     def write_distance(self, distance):
         if not self.stopped:
             now = current_time_millis()
-            self.set_currval(DistanceValue(id=self.id,
-                                           ts=now,
-                                           elapsed=now - self._start_time,
-                                           distance=distance))
+            self.set_currval(Distance(id=self.id,
+                                      ts=now,
+                                      elapsed=now - self._start_time,
+                                      distance=distance))
             self.id += 1
 
 

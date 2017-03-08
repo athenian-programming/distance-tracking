@@ -2,8 +2,9 @@ import logging
 import socket
 
 import grpc
-from constants import GRPC_PORT_DEFAULT
 from grpc_support import CannotConnectException
+from grpc_support import grpc_url
+from utils import setup_logging
 
 from gen.grpc_server_pb2 import ClientInfo
 from gen.grpc_server_pb2 import DistanceServerStub
@@ -13,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 class Distances(object):
     def __init__(self, hostname):
-        url = hostname if ":" in hostname else hostname + ":{0}".format(GRPC_PORT_DEFAULT)
+        url = grpc_url(hostname)
         try:
             channel = grpc.insecure_channel(url)
             self._stub = DistanceServerStub(channel)
@@ -27,8 +28,7 @@ class Distances(object):
 
 
 if __name__ == "__main__":
-    distances = Distances("127.0.0.1")
-    for val in distances.values():
-        print("Read distance:\n{0}".format(val))
-
-    print("Disconnected from gRPC server")
+    setup_logging()
+    for val in Distances("127.0.0.1").values():
+        logger.info("Read value:\n{0}".format(val))
+    logger.info("Exiting...")

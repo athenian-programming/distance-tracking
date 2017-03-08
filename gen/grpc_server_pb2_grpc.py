@@ -18,7 +18,7 @@ class DistanceServerStub(object):
         self.getDistances = channel.unary_stream(
             '/distance_tracking.DistanceServer/getDistances',
             request_serializer=grpc__server__pb2.ClientInfo.SerializeToString,
-            response_deserializer=grpc__server__pb2.DistanceValue.FromString,
+            response_deserializer=grpc__server__pb2.Distance.FromString,
         )
 
 
@@ -44,7 +44,7 @@ def add_DistanceServerServicer_to_server(servicer, server):
         'getDistances': grpc.unary_stream_rpc_method_handler(
             servicer.getDistances,
             request_deserializer=grpc__server__pb2.ClientInfo.FromString,
-            response_serializer=grpc__server__pb2.DistanceValue.SerializeToString,
+            response_serializer=grpc__server__pb2.Distance.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(

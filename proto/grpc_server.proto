@@ -7,7 +7,7 @@ service DistanceServer {
     rpc registerClient (ClientInfo) returns (ServerInfo) {
     }
 
-    rpc getDistances (ClientInfo) returns (stream DistanceValue) {
+    rpc getDistances (ClientInfo) returns (stream Distance) {
     }
 
 }
@@ -20,7 +20,7 @@ message ServerInfo {
     string info = 1;
 }
 
-message DistanceValue {
+message Distance {
     int32 id = 1;
     int64 ts = 2;
     int64 elapsed = 3;

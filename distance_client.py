@@ -7,6 +7,7 @@ from threading import Event
 import grpc
 from grpc_support import GenericClient
 from grpc_support import TimeoutException
+from utils import setup_logging
 
 from gen.grpc_server_pb2 import ClientInfo
 from gen.grpc_server_pb2 import DistanceServerStub
@@ -58,7 +59,9 @@ class DistanceClient(GenericClient):
 
 
 if __name__ == "__main__":
-    distances = DistanceClient("127.0.0.1").start()
-
-    while True:
-        print("Read distance:\n{0}".format(distances.get_distance()))
+    setup_logging()
+    client = DistanceClient("localhost").start()
+    for i in range(1000):
+        logger.info("Read value:\n{0}".format(client.get_distance()))
+    client.stop()
+    logger.info("Exiting...")
