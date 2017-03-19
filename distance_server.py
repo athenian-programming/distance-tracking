@@ -7,10 +7,10 @@ from grpc_support import GenericServer
 from utils import current_time_millis
 from utils import setup_logging
 
-from gen.grpc_server_pb2 import Distance
-from gen.grpc_server_pb2 import DistanceServerServicer
-from gen.grpc_server_pb2 import ServerInfo
-from gen.grpc_server_pb2 import add_DistanceServerServicer_to_server
+from pb.distance_server_pb2 import Distance
+from pb.distance_server_pb2 import DistanceServerServicer
+from pb.distance_server_pb2 import ServerInfo
+from pb.distance_server_pb2 import add_DistanceServerServicer_to_server
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +24,9 @@ class DistanceServer(DistanceServerServicer, GenericServer):
     def registerClient(self, request, context):
         logger.info("Connected to {0} client {1} [{2}]".format(self.desc, context.peer(), request.info))
         return ServerInfo(info="Server invoke count {0}".format(self.increment_cnt()))
+
+    def getDistance(self, request, context):
+        return self.get_currval()
 
     def getDistances(self, request, context):
         client_info = request.info
@@ -60,6 +63,6 @@ if __name__ == "__main__":
     setup_logging()
 
     with  DistanceServer().start() as server:
-        for i in range(100):
+        for i in range(1000000):
             server.write_distance(i)
             time.sleep(1)

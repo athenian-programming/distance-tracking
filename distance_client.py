@@ -9,8 +9,8 @@ from grpc_support import GenericClient
 from grpc_support import TimeoutException
 from utils import setup_logging
 
-from gen.grpc_server_pb2 import ClientInfo
-from gen.grpc_server_pb2 import DistanceServerStub
+from pb.distance_server_pb2 import ClientInfo
+from pb.distance_server_pb2 import DistanceServerStub
 
 logger = logging.getLogger(__name__)
 

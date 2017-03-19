@@ -1,0 +1,105 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "distance_server.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/distance": {
+      "get": {
+        "operationId": "getDistance",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/distance_serverDistance"
+            }
+          }
+        },
+        "tags": [
+          "DistanceServer"
+        ]
+      }
+    },
+    "/v1/distances": {
+      "post": {
+        "operationId": "getDistances",
+        "responses": {
+          "200": {
+            "description": "(streaming responses)",
+            "schema": {
+              "$ref": "#/definitions/distance_serverDistance"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/distance_serverClientInfo"
+            }
+          }
+        ],
+        "tags": [
+          "DistanceServer"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "distance_serverClientInfo": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "string"
+        }
+      }
+    },
+    "distance_serverDistance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ts": {
+          "type": "string",
+          "format": "int64"
+        },
+        "elapsed": {
+          "type": "string",
+          "format": "int64"
+        },
+        "distance": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "distance_serverServerInfo": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufEmpty": {
+      "type": "object",
+      "description": "service Foo {\n      rpc Bar(google.protobuf.Empty) returns (google.protobuf.Empty);\n    }\n\nThe JSON representation for `Empty` is empty JSON object `{}`.",
+      "title": "A generic empty message that you can re-use to avoid defining duplicated\nempty messages in your APIs. A typical example is to use it as the request\nor the response type of an API method. For instance:"
+    }
+  }
+}
