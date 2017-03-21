@@ -46,7 +46,7 @@ if __name__ == "__main__":
     try:
         while True:
             try:
-                val = distances.get_value()
+                val = distances.value()
 
                 if val.distance == -1:
                     prev_pos = None

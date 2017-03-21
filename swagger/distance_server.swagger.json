@@ -56,6 +56,22 @@
           "DistanceServer"
         ]
       }
+    },
+    "/v1/resetElapsed": {
+      "get": {
+        "operationId": "resetElapsed",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufEmpty"
+            }
+          }
+        },
+        "tags": [
+          "DistanceServer"
+        ]
+      }
     }
   },
   "definitions": {

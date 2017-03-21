@@ -3,6 +3,7 @@ import time
 
 import grpc
 from concurrent import futures
+from google.protobuf.empty_pb2 import Empty
 from grpc_support import GenericServer
 from utils import current_time_millis
 from utils import setup_logging
@@ -15,15 +16,19 @@ from pb.distance_server_pb2 import add_DistanceServerServicer_to_server
 logger = logging.getLogger(__name__)
 
 
-class DistanceServerImpl(DistanceServerServicer, GenericServer):
+class GrpcDistanceServer(DistanceServerServicer, GenericServer):
     def __init__(self, port=None):
-        super(DistanceServerImpl, self).__init__(port=port, desc="position server")
-        self._start_time = current_time_millis()
+        super(GrpcDistanceServer, self).__init__(port=port, desc="position server")
+        self.__start_time = current_time_millis()
         self.grpc_server = None
 
     def registerClient(self, request, context):
         logger.info("Connected to {0} client {1} [{2}]".format(self.desc, context.peer(), request.info))
         return ServerInfo(info="Server invoke count {0}".format(self.increment_cnt()))
+
+    def resetElapsed(self, request, context):
+        self.__start_time = current_time_millis()
+        return Empty()
 
     def getDistance(self, request, context):
         return self.get_currval()
@@ -54,7 +59,7 @@ class DistanceServerImpl(DistanceServerServicer, GenericServer):
             now = current_time_millis()
             self.set_currval(Distance(id=self.id,
                                       ts=now,
-                                      elapsed=now - self._start_time,
+                                      elapsed=now - self.__start_time,
                                       distance=distance))
             self.id += 1
 
@@ -62,7 +67,7 @@ class DistanceServerImpl(DistanceServerServicer, GenericServer):
 if __name__ == "__main__":
     setup_logging()
 
-    with  DistanceServerImpl() as server:
+    with  GrpcDistanceServer() as server:
         for i in range(1000000):
             server.write_distance(i)
             time.sleep(1)

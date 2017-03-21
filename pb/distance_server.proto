@@ -35,6 +35,12 @@ service DistanceServer {
             get: "/v1/distance"
         };
     }
+
+    rpc resetElapsed (google.protobuf.Empty) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            get: "/v1/resetElapsed"
+        };
+    }
 }
 
 

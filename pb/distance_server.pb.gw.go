@@ -10,17 +10,17 @@ It translates gRPC into RESTful JSON APIs.
 package distance_server
 
 import (
-    "io"
-    "net/http"
+	"io"
+	"net/http"
 
-    "github.com/golang/protobuf/proto"
-    "github.com/golang/protobuf/ptypes/empty"
-    "github.com/grpc-ecosystem/grpc-gateway/runtime"
-    "github.com/grpc-ecosystem/grpc-gateway/utilities"
-    "golang.org/x/net/context"
-    "google.golang.org/grpc"
-    "google.golang.org/grpc/codes"
-    "google.golang.org/grpc/grpclog"
+	"github.com/golang/protobuf/proto"
+	"github.com/golang/protobuf/ptypes/empty"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/utilities"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/grpclog"
 )
 
 var _ codes.Code
@@ -29,134 +29,175 @@ var _ = runtime.String
 var _ = utilities.NewDoubleArray
 
 func request_DistanceServer_GetDistances_0(ctx context.Context, marshaler runtime.Marshaler, client DistanceServerClient, req *http.Request, pathParams map[string]string) (DistanceServer_GetDistancesClient, runtime.ServerMetadata, error) {
-    var protoReq ClientInfo
-    var metadata runtime.ServerMetadata
+	var protoReq ClientInfo
+	var metadata runtime.ServerMetadata
 
-    if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
-        return nil, metadata, grpc.Errorf(codes.InvalidArgument, "%v", err)
-    }
+	if err := marshaler.NewDecoder(req.Body).Decode(&protoReq); err != nil {
+		return nil, metadata, grpc.Errorf(codes.InvalidArgument, "%v", err)
+	}
 
-    stream, err := client.GetDistances(ctx, &protoReq)
-    if err != nil {
-        return nil, metadata, err
-    }
-    header, err := stream.Header()
-    if err != nil {
-        return nil, metadata, err
-    }
-    metadata.HeaderMD = header
-    return stream, metadata, nil
+	stream, err := client.GetDistances(ctx, &protoReq)
+	if err != nil {
+		return nil, metadata, err
+	}
+	header, err := stream.Header()
+	if err != nil {
+		return nil, metadata, err
+	}
+	metadata.HeaderMD = header
+	return stream, metadata, nil
 
 }
 
 func request_DistanceServer_GetDistance_0(ctx context.Context, marshaler runtime.Marshaler, client DistanceServerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-    var protoReq empty.Empty
-    var metadata runtime.ServerMetadata
+	var protoReq empty.Empty
+	var metadata runtime.ServerMetadata
 
-    msg, err := client.GetDistance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-    return msg, metadata, err
+	msg, err := client.GetDistance(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func request_DistanceServer_ResetElapsed_0(ctx context.Context, marshaler runtime.Marshaler, client DistanceServerClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq empty.Empty
+	var metadata runtime.ServerMetadata
+
+	msg, err := client.ResetElapsed(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
 
 }
 
 // RegisterDistanceServerHandlerFromEndpoint is same as RegisterDistanceServerHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterDistanceServerHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-    conn, err := grpc.Dial(endpoint, opts...)
-    if err != nil {
-        return err
-    }
-    defer func() {
-        if err != nil {
-            if cerr := conn.Close(); cerr != nil {
-                grpclog.Printf("Failed to close conn to %s: %v", endpoint, cerr)
-            }
-            return
-        }
-        go func() {
-            <-ctx.Done()
-            if cerr := conn.Close(); cerr != nil {
-                grpclog.Printf("Failed to close conn to %s: %v", endpoint, cerr)
-            }
-        }()
-    }()
+	conn, err := grpc.Dial(endpoint, opts...)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err != nil {
+			if cerr := conn.Close(); cerr != nil {
+				grpclog.Printf("Failed to close conn to %s: %v", endpoint, cerr)
+			}
+			return
+		}
+		go func() {
+			<-ctx.Done()
+			if cerr := conn.Close(); cerr != nil {
+				grpclog.Printf("Failed to close conn to %s: %v", endpoint, cerr)
+			}
+		}()
+	}()
 
-    return RegisterDistanceServerHandler(ctx, mux, conn)
+	return RegisterDistanceServerHandler(ctx, mux, conn)
 }
 
 // RegisterDistanceServerHandler registers the http handlers for service DistanceServer to "mux".
 // The handlers forward requests to the grpc endpoint over "conn".
 func RegisterDistanceServerHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-    client := NewDistanceServerClient(conn)
+	client := NewDistanceServerClient(conn)
 
-    mux.Handle("POST", pattern_DistanceServer_GetDistances_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-        ctx, cancel := context.WithCancel(ctx)
-        defer cancel()
-        if cn, ok := w.(http.CloseNotifier); ok {
-            go func(done <-chan struct{}, closed <-chan bool) {
-                select {
-                case <-done:
-                case <-closed:
-                    cancel()
-                }
-            }(ctx.Done(), cn.CloseNotify())
-        }
-        inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-        rctx, err := runtime.AnnotateContext(ctx, req)
-        if err != nil {
-            runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
-        }
-        resp, md, err := request_DistanceServer_GetDistances_0(rctx, inboundMarshaler, client, req, pathParams)
-        ctx = runtime.NewServerMetadataContext(ctx, md)
-        if err != nil {
-            runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
-            return
-        }
+	mux.Handle("POST", pattern_DistanceServer_GetDistances_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(ctx)
+		defer cancel()
+		if cn, ok := w.(http.CloseNotifier); ok {
+			go func(done <-chan struct{}, closed <-chan bool) {
+				select {
+				case <-done:
+				case <-closed:
+					cancel()
+				}
+			}(ctx.Done(), cn.CloseNotify())
+		}
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, req)
+		if err != nil {
+			runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
+		}
+		resp, md, err := request_DistanceServer_GetDistances_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
+			return
+		}
 
-        forward_DistanceServer_GetDistances_0(ctx, outboundMarshaler, w, req, func() (proto.Message, error) {
-            return resp.Recv()
-        }, mux.GetForwardResponseOptions()...)
+		forward_DistanceServer_GetDistances_0(ctx, outboundMarshaler, w, req, func() (proto.Message, error) {
+			return resp.Recv()
+		}, mux.GetForwardResponseOptions()...)
 
-    })
+	})
 
-    mux.Handle("GET", pattern_DistanceServer_GetDistance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-        ctx, cancel := context.WithCancel(ctx)
-        defer cancel()
-        if cn, ok := w.(http.CloseNotifier); ok {
-            go func(done <-chan struct{}, closed <-chan bool) {
-                select {
-                case <-done:
-                case <-closed:
-                    cancel()
-                }
-            }(ctx.Done(), cn.CloseNotify())
-        }
-        inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-        rctx, err := runtime.AnnotateContext(ctx, req)
-        if err != nil {
-            runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
-        }
-        resp, md, err := request_DistanceServer_GetDistance_0(rctx, inboundMarshaler, client, req, pathParams)
-        ctx = runtime.NewServerMetadataContext(ctx, md)
-        if err != nil {
-            runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
-            return
-        }
+	mux.Handle("GET", pattern_DistanceServer_GetDistance_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(ctx)
+		defer cancel()
+		if cn, ok := w.(http.CloseNotifier); ok {
+			go func(done <-chan struct{}, closed <-chan bool) {
+				select {
+				case <-done:
+				case <-closed:
+					cancel()
+				}
+			}(ctx.Done(), cn.CloseNotify())
+		}
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, req)
+		if err != nil {
+			runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
+		}
+		resp, md, err := request_DistanceServer_GetDistance_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
+			return
+		}
 
-        forward_DistanceServer_GetDistance_0(ctx, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_DistanceServer_GetDistance_0(ctx, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
-    })
+	})
 
-    return nil
+	mux.Handle("GET", pattern_DistanceServer_ResetElapsed_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(ctx)
+		defer cancel()
+		if cn, ok := w.(http.CloseNotifier); ok {
+			go func(done <-chan struct{}, closed <-chan bool) {
+				select {
+				case <-done:
+				case <-closed:
+					cancel()
+				}
+			}(ctx.Done(), cn.CloseNotify())
+		}
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		rctx, err := runtime.AnnotateContext(ctx, req)
+		if err != nil {
+			runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
+		}
+		resp, md, err := request_DistanceServer_ResetElapsed_0(rctx, inboundMarshaler, client, req, pathParams)
+		ctx = runtime.NewServerMetadataContext(ctx, md)
+		if err != nil {
+			runtime.HTTPError(ctx, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_DistanceServer_ResetElapsed_0(ctx, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	return nil
 }
 
 var (
-    pattern_DistanceServer_GetDistances_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "distances"}, ""))
+	pattern_DistanceServer_GetDistances_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "distances"}, ""))
 
-    pattern_DistanceServer_GetDistance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "distance"}, ""))
+	pattern_DistanceServer_GetDistance_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "distance"}, ""))
+
+	pattern_DistanceServer_ResetElapsed_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"v1", "resetElapsed"}, ""))
 )
 
 var (
-    forward_DistanceServer_GetDistances_0 = runtime.ForwardResponseStream
+	forward_DistanceServer_GetDistances_0 = runtime.ForwardResponseStream
 
-    forward_DistanceServer_GetDistance_0 = runtime.ForwardResponseMessage
+	forward_DistanceServer_GetDistance_0 = runtime.ForwardResponseMessage
+
+	forward_DistanceServer_ResetElapsed_0 = runtime.ForwardResponseMessage
 )

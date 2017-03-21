@@ -12,7 +12,7 @@ from serial_reader import SerialReader
 from utils import setup_logging
 from utils import sleep
 
-from impl.distance_server_impl import DistanceServerImpl
+from impl.grpc_distance_server import GrpcDistanceServer
 
 logger = logging.getLogger(__name__)
 
@@ -26,20 +26,20 @@ class DistanceServer(object):
                  oor_size=OOR_SIZE_DEFAULT,
                  oor_time=OOR_TIME_DEFAULT,
                  oor_upper=OOR_UPPER_DEFAULT):
-        self.distance_server = DistanceServerImpl(grpc_port)
+        self.__distance_server = GrpcDistanceServer(grpc_port)
         self.__oor_values = OutOfRangeValues(size=oor_size)
         self.__oor_time = oor_time
         self.__oor_upper = oor_upper
 
     def start(self):
         try:
-            self.distance_server.start()
+            self.__distance_server.start()
         except BaseException as e:
             logger.error("Unable to start distance server [{0}]".format(e), exc_info=True)
             sys.exit(1)
 
     def stop(self):
-        self.distance_server.stop()
+        self.__distance_server.stop()
 
     def fetch_data(self, val_str, userdata):
         # Values sometimes get compacted together, take the later value if that happens since it's newer
@@ -53,9 +53,9 @@ class DistanceServer(object):
             self.__oor_values.mark()
             if self.__oor_values.is_out_of_range(self.__oor_time):
                 self.__oor_values.clear()
-                self.distance_server.write_distance(-1)
+                self.__distance_server.write_distance(-1)
         else:
-            self.distance_server.write_distance(mm)
+            self.__distance_server.write_distance(mm)
 
 
 if __name__ == "__main__":
