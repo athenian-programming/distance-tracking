@@ -29,11 +29,10 @@ class GrcpDistanceClient(object):
         logger.info("Connecting to gRPC server at {0}...".format(self.__url))
         try:
             self.__server_info = self.__stub.registerClient(self.__client_info)
+            logger.info("Connected to gRPC server at {0} [{1}]".format(self.__url, self.__server_info.info))
         except BaseException as e:
             logger.error("Failed to connect to gRPC server at {0} [{1}]".format(self.__url, e))
             raise CannotConnectException(self.__url)
-
-        logger.info("Connected to gRPC server at {0} [{1}]".format(self.__url, self.__server_info.info))
 
     def __enter__(self):
         self.connect()
