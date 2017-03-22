@@ -41,9 +41,6 @@ class GrcpDistanceClient(object):
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
-    def resetElapsed(self):
-        self.__stub.resetElapsed(Empty())
-
     def value(self):
         return self.__stub.getDistance(Empty())
 

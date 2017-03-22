@@ -27,11 +27,6 @@ class DistanceServerStub(object):
             request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             response_deserializer=pb_dot_distance__server__pb2.Distance.FromString,
         )
-        self.resetElapsed = channel.unary_unary(
-            '/distance_server.DistanceServer/resetElapsed',
-            request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-        )
 
 
 class DistanceServerServicer(object):
@@ -46,11 +41,6 @@ class DistanceServerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def getDistance(self, request, context):
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def resetElapsed(self, request, context):
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -72,11 +62,6 @@ def add_DistanceServerServicer_to_server(servicer, server):
             servicer.getDistance,
             request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             response_serializer=pb_dot_distance__server__pb2.Distance.SerializeToString,
-        ),
-        'resetElapsed': grpc.unary_unary_rpc_method_handler(
-            servicer.resetElapsed,
-            request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(

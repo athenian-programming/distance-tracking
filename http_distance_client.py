@@ -58,9 +58,6 @@ class HttpDistanceClient(SingleValueClient):
 
             logger.info("Disconnected from HTTP server at {0}".format(self.hostname))
 
-    def resetElapsed(self):
-        requests.get(self.hostname + "/v1/resetElapsed", headers={"cache-control": "no-cache"})
-
 
 if __name__ == "__main__":
     setup_logging()
@@ -68,8 +65,6 @@ if __name__ == "__main__":
     with HttpDistanceClient("localhost:8080") as client:
         for d, i in zip(client.values(), range(10)):
             print(d)
-            if i % 5 == 0:
-                client.resetElapsed()
 
         for i in range(10):
             print(client.value())

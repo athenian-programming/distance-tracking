@@ -3,7 +3,6 @@ import time
 
 import grpc
 from concurrent import futures
-from google.protobuf.empty_pb2 import Empty
 from grpc_support import GenericServer
 from utils import current_time_millis
 from utils import setup_logging
@@ -19,16 +18,11 @@ logger = logging.getLogger(__name__)
 class GrpcDistanceServer(DistanceServerServicer, GenericServer):
     def __init__(self, port=None):
         super(GrpcDistanceServer, self).__init__(port=port, desc="distance server")
-        self.__start_time = current_time_millis()
         self.grpc_server = None
 
     def registerClient(self, request, context):
         logger.info("Connected to {0} client {1} [{2}]".format(self.desc, context.peer(), request.info))
         return ServerInfo(info="Server invoke count {0}".format(self.increment_cnt()))
-
-    def resetElapsed(self, request, context):
-        self.__start_time = current_time_millis()
-        return Empty()
 
     def getDistance(self, request, context):
         return self.get_currval()
@@ -39,6 +33,11 @@ class GrpcDistanceServer(DistanceServerServicer, GenericServer):
 
     def _init_values_on_start(self):
         self.write_distance(-1)
+
+    def _adjust_currval(self, currval, start_time):
+        if currval:
+            currval.elapsed = current_time_millis() - start_time
+        return currval
 
     def _start_server(self):
         logger.info("Starting gRPC {0} listening on {1}".format(self.desc, self.hostname))
@@ -56,12 +55,11 @@ class GrpcDistanceServer(DistanceServerServicer, GenericServer):
 
     def write_distance(self, distance):
         if not self.stopped:
-            now = current_time_millis()
-            self.set_currval(Distance(id=self.id,
-                                      ts=now,
-                                      elapsed=now - self.__start_time,
-                                      distance=distance))
             self.id += 1
+            self.set_currval(Distance(id=self.id,
+                                      ts=current_time_millis(),
+                                      elapsed=0,
+                                      distance=distance))
 
 
 if __name__ == "__main__":

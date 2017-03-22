@@ -35,9 +35,6 @@ class DistanceClient(SingleValueClient):
                 time.sleep(pause_secs)
             logger.info("Disconnected from gRPC server at {0}".format(self.hostname))
 
-    def resetElapsed(self):
-        self.__grpc_client.resetElapsed()
-
 
 if __name__ == "__main__":
     setup_logging()
@@ -45,8 +42,6 @@ if __name__ == "__main__":
     with DistanceClient("localhost") as client:
         for d, i in zip(client.values(), range(10)):
             print(d)
-            if i % 5 == 0:
-                client.resetElapsed()
 
         for i in range(10):
             print(client.value())
