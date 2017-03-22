@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
 import argparse
 
-from distance_client import DistanceClient
+from http_distance_client import HttpDistanceClient
+
+# Run this with python3 to get print() to flush properly
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -8,10 +11,10 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--file", dest="file", required=True, help="CSV filename")
     args = vars(parser.parse_args())
 
-    with  DistanceClient(args["url"]) as distances, open(args["file"], 'w') as file:
-        for i in range(100):
-            val = distances.value()
-            print("Wrote: {0}, {1}".format(val.elapsed, val.distance))
-            file.write("{0}, {1}\n".format(val.elapsed, val.distance))
-
+    print("Starting...")
+    with  open(args["file"], 'w') as file:
+        for dist, i in zip(HttpDistanceClient(args["url"]).values(), range(10)):
+            val = "{0}, {1}".format(dist.elapsed, dist.distance)
+            file.write(val + "\n")
+            print(val)
     print("Exited...")

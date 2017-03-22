@@ -32,7 +32,7 @@
       }
     },
     "/v1/distances": {
-      "post": {
+      "get": {
         "operationId": "getDistances",
         "responses": {
           "200": {
@@ -44,12 +44,10 @@
         },
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/distance_serverClientInfo"
-            }
+            "name": "info",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [

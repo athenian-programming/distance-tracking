@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 class GrpcDistanceServer(DistanceServerServicer, GenericServer):
     def __init__(self, port=None):
-        super(GrpcDistanceServer, self).__init__(port=port, desc="position server")
+        super(GrpcDistanceServer, self).__init__(port=port, desc="distance server")
         self.__start_time = current_time_millis()
         self.grpc_server = None
 
