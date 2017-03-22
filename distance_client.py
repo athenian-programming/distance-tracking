@@ -17,13 +17,8 @@ class DistanceClient(GenericClient):
     def __init__(self, hostname):
         super(DistanceClient, self).__init__(hostname, desc="{0} client".format(socket.gethostname()))
         self.__distance_client = GrcpDistanceClient(hostname)
-        self.__connected = False
         self.__ready = Event()
         self.__currval = None
-
-    @property
-    def connected(self):
-        return self.__connected
 
     def _mark_ready(self):
         self.__ready.set()
@@ -32,7 +27,6 @@ class DistanceClient(GenericClient):
         while not self.stopped:
             try:
                 self.__distance_client.connect()
-                self.__connected = True
             except CannotConnectException:
                 time.sleep(pause_secs)
                 continue
@@ -46,7 +40,6 @@ class DistanceClient(GenericClient):
                         break
             except BaseException as e:
                 logger.info("Error reading values {0} [{1}]".format(self.hostname, e))
-                self.__connected = False
                 time.sleep(pause_secs)
             logger.info("Disconnected from gRPC server at {0}".format(self.hostname))
 
@@ -75,7 +68,7 @@ if __name__ == "__main__":
 
     with DistanceClient("localhost") as client:
         for d, i in zip(client.values(), range(10)):
-            print("Read value:\n{0}".format(d))
+            print(d)
             if i % 5 == 0:
                 client.resetElapsed()
 
