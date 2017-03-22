@@ -42,10 +42,13 @@ class DistanceClient(GenericClient):
                     with self.value_lock:
                         self.__currval = copy.deepcopy(val)
                     self._mark_ready()
+                    if self.stopped:
+                        break
             except BaseException as e:
-                logger.info("Disconnected from gRPC server at {0} [{1}]".format(self.hostname, e))
+                logger.info("Error reading values {0} [{1}]".format(self.hostname, e))
                 self.__connected = False
                 time.sleep(pause_secs)
+            logger.info("Disconnected from gRPC server at {0}".format(self.hostname))
 
     def resetElapsed(self):
         self.__distance_client.resetElapsed()
@@ -60,14 +63,20 @@ class DistanceClient(GenericClient):
                     self.__ready.clear()
                     return self.__currval
 
+    def values(self):
+        while not self.stopped:
+            yield self.value()
+
 
 if __name__ == "__main__":
     setup_logging()
 
-    with DistanceClient("localhost") as distances:
-        for i in range(1000):
-            logger.info("Read value:\n{0}".format(distances.value()))
-            if i % 5 == 0:
-                distances.resetElapsed()
+    print("Starting...")
 
-    logger.info("Exiting...")
+    with DistanceClient("localhost") as client:
+        for d, i in zip(client.values(), range(10)):
+            print("Read value:\n{0}".format(d))
+            if i % 5 == 0:
+                client.resetElapsed()
+
+    print("Exiting...")
