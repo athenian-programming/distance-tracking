@@ -20,8 +20,8 @@ install:
   - git clone https://github.com/athenian-robotics/common-robotics.git
   - gimme 1.8
 #  - sudo pip install --upgrade pip
-  - sudo pip install -r server-requirements.txt
-  - sudo pip install -r client-requirements.txt
+  - pip install -r server-requirements.txt
+  - pip install -r client-requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
   - go get -u github.com/golang/protobuf/protoc-gen-go
