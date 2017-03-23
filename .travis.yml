@@ -3,7 +3,7 @@ dist: trusty
 language: python
 python:
   - "2.7"
-#  - "3.6"
+  - "3.6"
 
 env:
   global:
@@ -14,18 +14,15 @@ env:
 
 before_install:
   - sudo apt-get -qq update
-#  - sudo apt-get install golang
 
 install:
   - git clone https://github.com/athenian-robotics/common-robotics.git $HOME/common-robotics
   - gimme 1.8
-#  - sudo pip install --upgrade pip
   - pip install -r server-requirements.txt
   - pip install -r client-requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
   - go get -u github.com/golang/protobuf/protoc-gen-go
-#  - go get -u github.com/googleapis/googleapis
   - go get -u google.golang.org/grpc
 
 
@@ -34,8 +31,8 @@ before_script:
   - make http_proxy
 
 script:
-  - ./http_distance_client.py --count 10
-  - ./distance_client.py --count 10
+  - ./http_distance_client.py --count 100
+  - ./distance_client.py --count 100
 
 branches:
   only:

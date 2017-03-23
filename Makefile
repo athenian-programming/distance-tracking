@@ -33,4 +33,4 @@ test_client:
 	./http_distance_client.py
 
 test_server:
-	./impl/grpc_distance_server.py --count 10000 --delay .25 &
+	./impl/grpc_distance_server.py --count 10000 --delay .1 &
