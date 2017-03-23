@@ -1,8 +1,8 @@
 .PHONY: swagger
 
-default: all
+default: codegen
 
-all: go-stubs py-stubs go-proxy swagger
+codegen: go-stubs py-stubs go-proxy swagger
 
 go-stubs:
 	protoc -I/usr/local/include -I. -I${GOPATH}/src -I${GOPATH}/src/github.com/googleapis/googleapis/ -I${HOME}/git/protobuf/src --go_out=,plugins=grpc:. ./pb/distance_server.proto

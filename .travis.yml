@@ -28,10 +28,11 @@ install:
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
   - go get -u github.com/golang/protobuf/protoc-gen-go
   - go get -u google.golang.org/grpc
+  - make codegen
 
 before_script:
-  - make test_server
-  - make http_proxy
+  - ./impl/grpc_distance_server.py --count 10000 --delay .1 &
+  - go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
 
 script:
   - ./http_distance_client.py --count 100
