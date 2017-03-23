@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import logging
 import time
 
@@ -67,7 +68,12 @@ class GrpcDistanceServer(DistanceServerServicer, GenericServer):
 if __name__ == "__main__":
     setup_logging()
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int, default=10000, help="Count")
+    parser.add_argument("--delay", type=float, default=1.0, help="Delay")
+    args = vars(parser.parse_args())
+
     with  GrpcDistanceServer() as server:
-        for i in range(1000000):
+        for i in range(args["count"]):
             server.write_distance(i)
-            time.sleep(1)
+            time.sleep(args["delay"])

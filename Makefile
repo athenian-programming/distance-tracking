@@ -26,8 +26,11 @@ install-go:
 	go get -u github.com/golang/protobuf/protoc-gen-go
 	go get -u google.golang.org/grpc
 
-http:
-	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
+http_proxy:
+	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
 
-sim_server:
-	./impl/grpc_distance_server.py
+test_client:
+	./http_distance_client.py
+
+test_server:
+	./impl/grpc_distance_server.py --count 100 --delay .5 &

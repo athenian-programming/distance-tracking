@@ -61,10 +61,15 @@ class HttpDistanceClient(SingleValueClient):
 
 if __name__ == "__main__":
     setup_logging()
+    cnt = 0
     with HttpDistanceClient("localhost:8080") as client:
         for d, i in zip(client.values(), range(10)):
             print(d)
+            cnt += 1
 
         for i in range(10):
             print(client.value())
+            cnt += 1
+
+    assert (cnt == 20)
     print("Exiting...")
