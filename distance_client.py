@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+
+import argparse
 import logging
 import socket
 import time
@@ -38,10 +41,21 @@ class DistanceClient(SingleValueClient):
 
 if __name__ == "__main__":
     setup_logging()
-    with DistanceClient("localhost") as client:
-        for d, i in zip(client.values(), range(10)):
-            print(d)
 
-        for i in range(10):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int, default=10, help="Count")
+    args = vars(parser.parse_args())
+
+    cnt = 0
+    with DistanceClient("localhost") as client:
+        for d, i in zip(client.values(), range(args["count"])):
+            print(d)
+            cnt += 1
+
+        for i in range(args["count"]):
             print(client.value())
+            cnt += 1
+
+    assert (cnt == 2 * args["count"])
+
     print("Exiting...")

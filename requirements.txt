@@ -1,7 +1,5 @@
-#server
+# server
 grpcio
 google-cloud
-
-
 # client
 requests
