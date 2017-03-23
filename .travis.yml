@@ -10,7 +10,7 @@ python:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install gcc
-  - sudo apt-get install go
+#  - sudo apt-get install go
 
 install:
   - pip install --user --upgrade pip
