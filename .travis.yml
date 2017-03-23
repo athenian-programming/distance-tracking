@@ -17,7 +17,10 @@ before_install:
 #  - sudo apt-get install golang
 
 install:
+  - go version
+  - python --version
   - sudo pip install --upgrade pip
+  - pip --version
   - sudo pip install -r requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
