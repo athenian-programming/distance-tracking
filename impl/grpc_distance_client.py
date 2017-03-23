@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import logging
 import socket
 
@@ -55,7 +57,7 @@ if __name__ == "__main__":
         for i in range(10):
             logger.info("Read value:\n{0}".format(distances.value()))
 
-        for val in distances.values():
-            logger.info("Read value:\n{0}".format(val))
+        for d, i in zip(distances.values(), range(10)):
+            logger.info("Read value:\n{0}".format(d))
 
     logger.info("Exiting...")

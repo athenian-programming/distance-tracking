@@ -1,0 +1,21 @@
+language: python, go
+python:
+  - "2.7"
+  - "3.6"
+
+go:
+  - 1.8
+  - master
+
+install:
+  - pip install --user -r requirements.txt
+  - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+  - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+  - go get -u github.com/golang/protobuf/protoc-gen-go
+
+
+script: pytest
+
+branches:
+  only:
+    - master

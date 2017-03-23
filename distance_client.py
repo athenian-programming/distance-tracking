@@ -38,7 +38,6 @@ class DistanceClient(SingleValueClient):
 
 if __name__ == "__main__":
     setup_logging()
-    print("Starting...")
     with DistanceClient("localhost") as client:
         for d, i in zip(client.values(), range(10)):
             print(d)

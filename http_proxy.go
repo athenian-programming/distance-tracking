@@ -82,6 +82,7 @@ func Run(address string, opts ...runtime.ServeMuxOption) error {
     }
     mux.Handle("/", gw)
 
+    glog.Infof("Listening on %s", address)
     return http.ListenAndServe(address, allowCORS(mux))
 }
 
