@@ -1,15 +1,16 @@
-language: python, go
+language: python
 python:
   - "2.7"
   - "3.6"
 
-go:
-  - 1.8
-  - master
+#go:
+#  - 1.8
+#  - master
 
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get upgrade -y gcc
+  - sudo apt-get install go
 
 install:
   - pip install --user --upgrade pip
