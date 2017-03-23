@@ -1,5 +1,6 @@
 #server
 grpcio
+google-cloud
 
 
 # client

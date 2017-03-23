@@ -20,4 +20,4 @@ http:
 	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
 
 sim_server:
-	./
+	./impl/grpc_distance_server.py

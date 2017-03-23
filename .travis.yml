@@ -7,17 +7,24 @@ python:
 #  - 1.8
 #  - master
 
+env:
+  - GOPATH=$HOME/go
+  - PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+  - PYTHONPATH=${PYTHONPATH}:~/git/common-robotics
+
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install gcc
-#  - sudo apt-get install go
+#  - sudo apt-get install gcc
+  - sudo apt-get install golang
 
 install:
-  - pip install --user --upgrade pip
+  - sudo pip install --upgrade pip
   - pip install --user -r requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
   - go get -u github.com/golang/protobuf/protoc-gen-go
+  - go get -u github.com/googleapis/googleapis
+  - go get -u google.golang.org/grpc
 
 
 script: pytest
