@@ -16,6 +16,16 @@ go-proxy:
 swagger:
 	cd pb; protoc -I/usr/local/include -I. -I${GOPATH}/src -I${GOPATH}/src/github.com/googleapis/googleapis/ -I${HOME}/git/protobuf/src --swagger_out=logtostderr=true:../swagger ./distance_server.proto
 
+install-py:
+	sudo pip install -r requirements.txt
+
+install-go:
+	sudo apt-get install golang
+	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+	go get -u github.com/golang/protobuf/protoc-gen-go
+	go get -u google.golang.org/grpc
+
 http:
 	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
 

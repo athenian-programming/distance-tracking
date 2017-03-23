@@ -3,19 +3,18 @@ python:
   - "2.7"
 #  - "3.6"
 
-#go:
-#  - 1.8
-#  - master
+go:
+  - 1.8
 
 env:
-  - GOPATH=$HOME/go
-  - PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-  - PYTHONPATH=${PYTHONPATH}:~/git/common-robotics
+  global:
+    - GOPATH=$HOME/go
+    - PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+    - PYTHONPATH=${PYTHONPATH}:~/git/common-robotics
 
 before_install:
   - sudo apt-get -qq update
-#  - sudo apt-get install gcc
-  - sudo apt-get install golang
+#  - sudo apt-get install golang
 
 install:
   - sudo pip install --upgrade pip
