@@ -10,6 +10,7 @@ env:
     - GOPATH=$HOME/go
     - PATH=$PATH:$GOROOT/bin:$GOPATH/bin
     - PYTHONPATH=${PYTHONPATH}:~/common-robotics
+    - PYTHONWARNINGS="ignore"
 
 before_install:
   - sudo apt-get -qq update
@@ -18,7 +19,7 @@ before_install:
 install:
   - git clone https://github.com/athenian-robotics/common-robotics.git
   - gimme 1.8
-  - sudo pip install --upgrade pip
+#  - sudo pip install --upgrade pip
   - sudo pip install -r server-requirements.txt
   - sudo pip install -r client-requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
