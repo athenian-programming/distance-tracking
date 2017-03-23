@@ -18,7 +18,8 @@ before_install:
 install:
   - gimme 1.8
   - sudo pip install --upgrade pip
-  - sudo pip install -r requirements.txt
+  - sudo pip install -r server-requirements.txt
+  - sudo pip install -r client-requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
   - go get -u github.com/golang/protobuf/protoc-gen-go
@@ -31,7 +32,8 @@ before_script:
   - make http_proxy
 
 script:
-  - ./http_distance_client.py
+  - ./http_distance_client.py --count 10
+  - ./distance_client.py --count 10
 
 branches:
   only:
