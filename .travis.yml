@@ -7,8 +7,12 @@ go:
   - 1.8
   - master
 
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get upgrade -y gcc
+
 install:
-  - pip install --upgrade pip
+  - pip install --user --upgrade pip
   - pip install --user -r requirements.txt
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
