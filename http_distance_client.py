@@ -1,5 +1,6 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
+import argparse
 import json
 import logging
 import socket
@@ -61,15 +62,21 @@ class HttpDistanceClient(SingleValueClient):
 
 if __name__ == "__main__":
     setup_logging()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--count", type=int, default=10, help="Count")
+    args = vars(parser.parse_args())
+
     cnt = 0
     with HttpDistanceClient("localhost:8080") as client:
-        for d, i in zip(client.values(), range(10)):
+        for d, i in zip(client.values(), range(args["count"])):
             print(d)
             cnt += 1
 
-        for i in range(10):
+        for i in range(args["count"]):
             print(client.value())
             cnt += 1
 
-    assert (cnt == 20)
+    assert (cnt == 2 * args["count"])
+
     print("Exiting...")
