@@ -18,15 +18,16 @@ go-proxy:
 	protoc -I/usr/local/include -I. -I$(GOSRC) -I$(GOOGLEAPIS) -I$(PBAPIS) --grpc-gateway_out=logtostderr=true:. ./pb/distance_server.proto
 
 swagger:
-	cd pb; protoc -I/usr/local/include -I. -I$(GOSRC) -I$(GOOGLEAPIS) -I$(PBAPIS)--swagger_out=logtostderr=true:../swagger ./distance_server.proto
+	cd pb; protoc -I/usr/local/include -I. -I$(GOSRC) -I$(GOOGLEAPIS) -I$(PBAPIS) --swagger_out=logtostderr=true:../swagger ./distance_server.proto
+
+install-common:
+	git clone https://github.com/athenian-robotics/common-robotics.git ${HOME}/git/common-robotics
 
 install-py:
 	sudo pip install -r requirements.txt
 	sudo pip install -r http-client-requirements.txt
 
 install-go:
-	sudo apt-get install golang
-	sudo apt-get install golang-goprotobuf-dev
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 	go get -u github.com/golang/protobuf/protoc-gen-go

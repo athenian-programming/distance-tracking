@@ -24,18 +24,14 @@ before_install:
   - mkdir ${HOME}/git
 
 install:
-  - git clone https://github.com/athenian-robotics/common-robotics.git ${HOME}/git/common-robotics
-  - pip install -r requirements.txt
-  - pip install -r http-client-requirements.txt
-  - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
-  - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
-  - go get -u github.com/golang/protobuf/protoc-gen-go
-  - go get -u google.golang.org/grpc
+  - make install-common
+  - make install-py
+  - make install-go
   - bin/install-protobuf.sh
   - make codegen
 
 before_script:
-  - ./impl/grpc_distance_server.py --count 10000 --delay .1 &
+  - ./impl/grpc_distance_server.py --count 100000 --delay .1 &
   - go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
 
 script:
