@@ -34,5 +34,5 @@ before_script:
   - sleep 5
 
 script:
-  - ./test_client.py --threads 5 --repeat 5 --size 100
+  - python -m unittest discover -s . -p test_clients.py
 
