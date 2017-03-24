@@ -2,7 +2,6 @@
 
 import logging
 import unittest
-from threading import Thread
 
 from utils import setup_logging
 
@@ -16,14 +15,10 @@ setup_logging()
 
 class ClientTest(unittest.TestCase):
     def test_client(self):
-        for t in range(5):
-            print("Launching client thread: {0}".format(t))
-            Thread(target=self.distance_client, args=(5, 10, False)).start()
+        self.distance_client(5, 10, False)
 
     def test_http_client(self):
-        for t in range(5):
-            print("Launching http client thread: {0}".format(t))
-            Thread(target=self.http_distance_client, args=(5, 10, False)).start()
+        self.http_distance_client(5, 10, False)
 
     def distance_client(self, repeat, size, print_vals):
         cnt = 0
