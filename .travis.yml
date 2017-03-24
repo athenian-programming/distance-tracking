@@ -18,6 +18,7 @@ env:
 
 before_install:
   - sudo apt-get -qq update
+  - sudo apt-get install autoconf automake libtool curl make g++ unzip
   - gimme 1.8
 
 install:
@@ -28,6 +29,7 @@ install:
   - go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
   - go get -u github.com/golang/protobuf/protoc-gen-go
   - go get -u google.golang.org/grpc
+  - bin/install-protobuf.sh
   - make codegen
 
 before_script:
