@@ -43,19 +43,29 @@ if __name__ == "__main__":
     setup_logging()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--count", type=int, default=10, help="Count")
+    parser.add_argument("--repeat", type=int, default=10, help="Repeat count")
+    parser.add_argument("--size", type=int, default=10, help="Sample size")
+    parser.add_argument("--print", default=False, action="store_true", help="Print values")
     args = vars(parser.parse_args())
 
+    repeat = args["repeat"]
+    size = args["size"]
+    print_vals = args["print"]
     cnt = 0
-    with DistanceClient("localhost") as client:
-        for d, i in zip(client.values(), range(args["count"])):
-            print(d)
-            cnt += 1
 
-        for i in range(args["count"]):
-            print(client.value())
-            cnt += 1
+    for i in range(repeat):
+        print("Iteration {0}".format(i))
+        with DistanceClient("localhost") as client:
+            for d, j in zip(client.values(), range(size)):
+                if print_vals:
+                    print(d)
+                cnt += 1
 
-    assert (cnt == 2 * args["count"])
+            for j in range(size):
+                if print_vals:
+                    print(client.value())
+                cnt += 1
+
+    assert (cnt == repeat * size * 2)
 
     print("Exiting...")

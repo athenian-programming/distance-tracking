@@ -69,11 +69,12 @@ if __name__ == "__main__":
     setup_logging()
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--count", type=int, default=10000, help="Count")
-    parser.add_argument("--delay", type=float, default=1.0, help="Delay")
+    parser.add_argument("--delay", type=float, default=1.0, help="Delay secs")
     args = vars(parser.parse_args())
 
     with  GrpcDistanceServer() as server:
-        for i in range(args["count"]):
-            server.write_distance(i)
+        cnt = 0
+        while True:
+            server.write_distance(cnt)
+            cnt += 1
             time.sleep(args["delay"])

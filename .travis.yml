@@ -34,6 +34,6 @@ before_script:
   - sleep 5
 
 script:
-  - ./http_distance_client.py --count 10
-  - ./distance_client.py --count 10
+  - ./http_distance_client.py --repeat 5 --size 100
+  - ./distance_client.py --repeat 5 --size 100
 
