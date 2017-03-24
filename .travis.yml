@@ -7,7 +7,7 @@ branches:
 language: python
 python:
   - "2.7"
-  - "3.6"
+#  - "3.6"
 
 env:
   global:
@@ -21,7 +21,7 @@ before_install:
   - sudo apt-get install autoconf automake libtool curl make g++ unzip
   - sudo apt-get install golang-goprotobuf-dev
   - bin/install-protobuf.sh
-  - gimme 1.8
+#  - gimme 1.8
 
 install:
   - make install-common
@@ -34,6 +34,6 @@ before_script:
   - make http_proxy &
 
 script:
-  - ./http_distance_client.py --count 100
+#  - ./http_distance_client.py --count 100
   - ./distance_client.py --count 100
 
