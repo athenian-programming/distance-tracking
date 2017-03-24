@@ -24,8 +24,8 @@ install-common:
 	git clone https://github.com/athenian-robotics/common-robotics.git ${HOME}/git/common-robotics
 
 install-py:
-	sudo pip install -r requirements.txt
-	sudo pip install -r http-client-requirements.txt
+ 	pip install -r requirements.txt
+	pip install -r http-client-requirements.txt
 
 install-go:
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
