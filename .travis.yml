@@ -20,14 +20,13 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install autoconf automake libtool curl make g++ unzip
   - sudo apt-get install golang-goprotobuf-dev
+  - bin/install-protobuf.sh
   - gimme 1.8
-  - mkdir ${HOME}/git
 
 install:
   - make install-common
   - make install-py
   - make install-go
-  - bin/install-protobuf.sh
   - make codegen
 
 before_script:

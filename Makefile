@@ -21,6 +21,7 @@ swagger:
 	cd pb; protoc -I/usr/local/include -I. -I$(GOSRC) -I$(GOOGLEAPIS) -I$(PBAPIS) --swagger_out=logtostderr=true:../swagger ./distance_server.proto
 
 install-common:
+	mkdir ${HOME}/git
 	git clone https://github.com/athenian-robotics/common-robotics.git ${HOME}/git/common-robotics
 
 install-py:
