@@ -28,11 +28,11 @@ install-py:
 	pip install -r http-client-requirements.txt
 
 install-go:
+	go get -u google.golang.org/grpc
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
-	go get -u github.com/golang/protobuf/protoc-gen-go
-	go get -u github.com/golang/protobuf/proto
-	go get -u google.golang.org/grpc
+#	go get -u github.com/golang/protobuf/protoc-gen-go
+#	go get -u github.com/golang/protobuf/proto
 
 http_proxy:
 	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
