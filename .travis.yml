@@ -27,7 +27,7 @@ install:
   - make install-common
   - make install-py
   - make install-go
-  - make codegen
+#  - make codegen
 
 before_script:
   - make test_server &
