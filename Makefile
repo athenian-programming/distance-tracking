@@ -31,13 +31,14 @@ install-go:
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 	go get -u github.com/golang/protobuf/protoc-gen-go
+	go get -u github.com/golang/protobuf/proto
 	go get -u google.golang.org/grpc
 
 http_proxy:
-	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
+	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
 
 test_client:
 	./http_distance_client.py
 
 test_server:
-	./impl/grpc_distance_server.py --count 10000 --delay .1 &
+	./impl/grpc_distance_server.py --count 10000 --delay .1

@@ -15,9 +15,8 @@ import (
 )
 
 var (
-    distanceEndpoint = flag.String("distance_endpoint", "localhost:50051", "endpoint of DistanceService")
-    swaggerDir = flag.String("swagger_dir", "swagger", "path to the directory which contains swagger definitions")
-    swaggerPrefix = "/swagger/"
+    distanceEndpoint = flag.String("distance_endpoint", "localhost:50051", "DistanceService endpoint")
+    swaggerDir = flag.String("swagger_dir", "swagger", "paSwagger definitions directory")
 )
 
 // allowCORS allows Cross Origin Resoruce Sharing from any origin.
@@ -52,7 +51,7 @@ func serveSwagger(w http.ResponseWriter, r *http.Request) {
     }
 
     glog.Infof("Serving %s", r.URL.Path)
-    p := strings.TrimPrefix(r.URL.Path, swaggerPrefix)
+    p := strings.TrimPrefix(r.URL.Path, "/" + *swaggerDir + "/")
     p = path.Join(*swaggerDir, p)
     http.ServeFile(w, r, p)
 }
@@ -74,7 +73,7 @@ func Run(address string, opts ...runtime.ServeMuxOption) error {
     defer cancel()
 
     mux := http.NewServeMux()
-    mux.HandleFunc(swaggerPrefix, serveSwagger)
+    mux.HandleFunc("/" + *swaggerDir + "/", serveSwagger)
 
     gw, err := newGateway(ctx, opts...)
     if err != nil {
@@ -90,7 +89,7 @@ func main() {
     flag.Parse()
     defer glog.Flush()
 
-    if err := Run(":8080"); err != nil {
+    if err := Run("localhost:8080"); err != nil {
         glog.Fatal(err)
     }
 }

@@ -30,8 +30,8 @@ install:
   - make codegen
 
 before_script:
-  - ./impl/grpc_distance_server.py --count 100000 --delay .1 &
-  - go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
+  - make test_server &
+  - make http_proxy &
 
 script:
   - ./http_distance_client.py --count 100
