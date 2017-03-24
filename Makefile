@@ -4,11 +4,11 @@ default: codegen
 
 codegen: go-stubs py-stubs go-proxy swagger
 
-go-stubs:
-	protoc -I/usr/local/include -I. -I${GOPATH}/src -I${GOPATH}/src/github.com/googleapis/googleapis/ -I${HOME}/git/protobuf/src --go_out=,plugins=grpc:. ./pb/distance_server.proto
-
 py-stubs:
-	python -m grpc_tools.protoc -I. -I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/ -I${HOME}/git/protobuf/src --python_out=. --grpc_python_out=. ./pb/distance_server.proto
+	python -m grpc_tools.protoc -I. -I${GOPATH}/src -I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/ -I${HOME}/git/protobuf/src --python_out=. --grpc_python_out=. ./pb/distance_server.proto
+
+go-stubs:
+	protoc -I/usr/local/include -I. -I${GOPATH}/src -I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/ -I${HOME}/git/protobuf/src --go_out=,plugins=grpc:. ./pb/distance_server.proto
 
 go-proxy:
 	protoc -I/usr/local/include -I. -I${GOPATH}/src -I${GOPATH}/src/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis/ -I${HOME}/git/protobuf/src --grpc-gateway_out=logtostderr=true:. ./pb/distance_server.proto
