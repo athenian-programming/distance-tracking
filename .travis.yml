@@ -16,9 +16,9 @@ env:
     - PYTHONPATH=${PYTHONPATH}:${HOME}/git/common-robotics
     - PYTHONWARNINGS="ignore"
 
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get install golang-goprotobuf-dev
+#before_install:
+#  - sudo apt-get -qq update
+#  - sudo apt-get install golang-goprotobuf-dev
 #  - sudo apt-get install autoconf automake libtool curl make g++ unzip
 #  - bin/install-protobuf.sh
 
@@ -34,6 +34,6 @@ before_script:
   - sleep 5
 
 script:
-  - ./http_distance_client.py --count 100
-  - ./distance_client.py --count 100
+  - ./http_distance_client.py --count 10
+  - ./distance_client.py --count 10
 
