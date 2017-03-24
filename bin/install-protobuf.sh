@@ -1,7 +1,7 @@
 #!/bin/sh
 git clone https://github.com/google/protobuf
 cd protobuf
-./autogen
+./autogen.sh
 ./configure
 make
 sudo make install
