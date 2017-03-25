@@ -7,7 +7,7 @@ import time
 from grpc_support import CannotConnectException, SingleValueClient
 from utils import setup_logging
 
-from impl.grpc_distance_client import GrcpDistanceClient
+from grpc_distance_client import GrcpDistanceClient
 
 logger = logging.getLogger(__name__)
 

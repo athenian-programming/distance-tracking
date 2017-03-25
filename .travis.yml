@@ -34,5 +34,5 @@ before_script:
   - sleep 5
 
 script:
-  - python -m unittest discover -s . -p test_clients.py
+  - python -m unittest discover -s ./tests -p test_clients.py
 

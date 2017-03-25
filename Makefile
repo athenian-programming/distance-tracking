@@ -24,8 +24,8 @@ install-common:
 	git clone https://github.com/athenian-robotics/common-robotics.git ${HOME}/git/common-robotics
 
 install-py:
-	pip install -r requirements.txt
-	pip install -r http-client-requirements.txt
+	pip install -r pip/requirements.txt
+	pip install -r pip/http-client-requirements.txt
 
 install-go:
 	go get -u google.golang.org/grpc
@@ -35,10 +35,10 @@ install-go:
 #	go get -u github.com/golang/protobuf/proto
 
 http_proxy:
-	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
+	go run proxy/http_proxy.go -stderrthreshold=INFO -logtostderr=true
 
 test_client:
 	./http_distance_client.py
 
 test_server:
-	./impl/grpc_distance_server.py --delay .1
+	./grpc_distance_server.py --delay .1

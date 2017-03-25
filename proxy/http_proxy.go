@@ -9,7 +9,7 @@ import (
     "github.com/grpc-ecosystem/grpc-gateway/runtime"
     "google.golang.org/grpc"
 
-    proto "./pb"
+    proto "../pb"
     "strings"
     "path"
 )
@@ -72,8 +72,11 @@ func Run(address string, opts ...runtime.ServeMuxOption) error {
     ctx, cancel := context.WithCancel(ctx)
     defer cancel()
 
+    sdir := "/" + *swaggerDir + "/"
+    glog.Infof("Swagger files served from http://%s%s", address, sdir)
+
     mux := http.NewServeMux()
-    mux.HandleFunc("/" + *swaggerDir + "/", serveSwagger)
+    mux.HandleFunc(sdir, serveSwagger)
 
     gw, err := newGateway(ctx, opts...)
     if err != nil {
@@ -88,6 +91,8 @@ func Run(address string, opts ...runtime.ServeMuxOption) error {
 func main() {
     flag.Parse()
     defer glog.Flush()
+
+    glog.Info("Starting http_proxy")
 
     if err := Run("localhost:8080"); err != nil {
         glog.Fatal(err)

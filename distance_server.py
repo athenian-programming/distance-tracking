@@ -12,7 +12,7 @@ from serial_reader import SerialReader
 from utils import setup_logging
 from utils import sleep
 
-from impl.grpc_distance_server import GrpcDistanceServer
+from grpc_distance_server import GrpcDistanceServer
 
 logger = logging.getLogger(__name__)
 
