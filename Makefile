@@ -35,7 +35,7 @@ install-go:
 #	go get -u github.com/golang/protobuf/proto
 
 http_proxy:
-	go run proxy/http_proxy.go -stderrthreshold=INFO -logtostderr=true
+	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
 
 test_client:
 	./http_distance_client.py

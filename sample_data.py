@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-import cli_args  as cli
+import cli_args as cli
 
 from http_distance_client import HttpDistanceClient
 

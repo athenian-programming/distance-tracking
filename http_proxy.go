@@ -9,7 +9,7 @@ import (
     "github.com/grpc-ecosystem/grpc-gateway/runtime"
     "google.golang.org/grpc"
 
-    proto "../pb"
+    proto "./pb"
     "strings"
     "path"
 )

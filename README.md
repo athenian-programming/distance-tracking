@@ -22,11 +22,28 @@ $ sudo pip3 install -r pip/http-client-requirements.txt
 
 Verify your client is working with:
 ````bash
-$ ./verify_client.py  --url distance_url
+$ ./sample_data.py  --url distance_url
 ````
+
+## Usage
+```python
+import http_distance_client
+
+with HttpDistanceClient("localhost:8080") as client:
+    for j in range(10):
+        print(client.value())
+```
+
+```python
+import http_distance_client
+
+with HttpDistanceClient("localhost:8080") as client:
+    for d, j in zip(client.values(), range(10)):
+        print(d)
+```
 
 ### OSX Notes
 
 ````bash
-$ brew install sdwagger-codegen
+$ brew install swagger-codegen
 ````

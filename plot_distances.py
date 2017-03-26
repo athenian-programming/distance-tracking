@@ -3,7 +3,7 @@ import datetime
 import logging
 import time
 
-import cli_args  as cli
+import cli_args as cli
 import plotly.graph_objs as go
 import plotly.plotly as py
 import plotly.tools as tls

@@ -75,6 +75,6 @@ if __name__ == "__main__":
                 print(client.value())
                 cnt += 1
 
-    assert (cnt == 5 * 10 * 2)
+    assert cnt == 5 * 10 * 2
 
     print("Exiting...")

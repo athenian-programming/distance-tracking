@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-import cli_args  as cli
+import cli_args as cli
 
 from http_distance_client import HttpDistanceClient
 
@@ -15,10 +15,10 @@ if __name__ == "__main__":
     args = vars(parser.parse_args())
 
     print("Starting...")
-    with open(args["file"], 'w') as file, HttpDistanceClient(args["url"]) as client:
+    with open(args["file"], 'w') as f, HttpDistanceClient(args["url"]) as client:
         for i in range(10):
             dist = client.value()
             val = "{0}, {1}".format(dist.elapsed, dist.distance)
-            file.write(val + "\n")
+            f.write(val + "\n")
             print(val)
     print("Exited...")
