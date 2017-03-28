@@ -51,7 +51,8 @@ func serveSwagger(w http.ResponseWriter, r *http.Request) {
     }
 
     glog.Infof("Serving %s", r.URL.Path)
-    p := strings.TrimPrefix(r.URL.Path, "/" + *swaggerDir + "/")
+    sdir := "/" + *swaggerDir + "/"
+    p := strings.TrimPrefix(r.URL.Path, sdir)
     p = path.Join(*swaggerDir, p)
     http.ServeFile(w, r, p)
 }
@@ -94,7 +95,7 @@ func main() {
 
     glog.Info("Starting http_proxy")
 
-    if err := Run("localhost:8080"); err != nil {
+    if err := Run(":8080"); err != nil {
         glog.Fatal(err)
     }
 }
