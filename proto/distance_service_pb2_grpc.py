@@ -2,7 +2,7 @@
 import google.protobuf.empty_pb2 as google_dot_protobuf_dot_empty__pb2
 import grpc
 
-import pb.distance_server_pb2 as pb_dot_distance__server__pb2
+import proto.distance_service_pb2 as proto_dot_distance__service__pb2
 
 
 class DistanceServerStub(object):
@@ -14,18 +14,18 @@ class DistanceServerStub(object):
         """
         self.registerClient = channel.unary_unary(
             '/distance_server.DistanceServer/registerClient',
-            request_serializer=pb_dot_distance__server__pb2.ClientInfo.SerializeToString,
-            response_deserializer=pb_dot_distance__server__pb2.ServerInfo.FromString,
+            request_serializer=proto_dot_distance__service__pb2.ClientInfo.SerializeToString,
+            response_deserializer=proto_dot_distance__service__pb2.ServerInfo.FromString,
         )
         self.getDistances = channel.unary_stream(
             '/distance_server.DistanceServer/getDistances',
-            request_serializer=pb_dot_distance__server__pb2.ClientInfo.SerializeToString,
-            response_deserializer=pb_dot_distance__server__pb2.Distance.FromString,
+            request_serializer=proto_dot_distance__service__pb2.ClientInfo.SerializeToString,
+            response_deserializer=proto_dot_distance__service__pb2.Distance.FromString,
         )
         self.getDistance = channel.unary_unary(
             '/distance_server.DistanceServer/getDistance',
             request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            response_deserializer=pb_dot_distance__server__pb2.Distance.FromString,
+            response_deserializer=proto_dot_distance__service__pb2.Distance.FromString,
         )
 
 
@@ -50,18 +50,18 @@ def add_DistanceServerServicer_to_server(servicer, server):
     rpc_method_handlers = {
         'registerClient': grpc.unary_unary_rpc_method_handler(
             servicer.registerClient,
-            request_deserializer=pb_dot_distance__server__pb2.ClientInfo.FromString,
-            response_serializer=pb_dot_distance__server__pb2.ServerInfo.SerializeToString,
+            request_deserializer=proto_dot_distance__service__pb2.ClientInfo.FromString,
+            response_serializer=proto_dot_distance__service__pb2.ServerInfo.SerializeToString,
         ),
         'getDistances': grpc.unary_stream_rpc_method_handler(
             servicer.getDistances,
-            request_deserializer=pb_dot_distance__server__pb2.ClientInfo.FromString,
-            response_serializer=pb_dot_distance__server__pb2.Distance.SerializeToString,
+            request_deserializer=proto_dot_distance__service__pb2.ClientInfo.FromString,
+            response_serializer=proto_dot_distance__service__pb2.Distance.SerializeToString,
         ),
         'getDistance': grpc.unary_unary_rpc_method_handler(
             servicer.getDistance,
             request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            response_serializer=pb_dot_distance__server__pb2.Distance.SerializeToString,
+            response_serializer=proto_dot_distance__service__pb2.Distance.SerializeToString,
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(

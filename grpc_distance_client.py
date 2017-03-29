@@ -9,8 +9,8 @@ from grpc_support import CannotConnectException
 from grpc_support import grpc_url
 from utils import setup_logging
 
-from pb.distance_server_pb2 import ClientInfo
-from pb.distance_server_pb2 import DistanceServerStub
+from proto.distance_service_pb2 import ClientInfo
+from proto.distance_service_pb2 import DistanceServerStub
 
 logger = logging.getLogger(__name__)
 

@@ -9,7 +9,7 @@ import (
     "github.com/grpc-ecosystem/grpc-gateway/runtime"
     "google.golang.org/grpc"
 
-    proto "./pb"
+    pb "./proto"
     "strings"
     "path"
 )
@@ -61,7 +61,7 @@ func serveSwagger(w http.ResponseWriter, r *http.Request) {
 func newGateway(ctx context.Context, opts ...runtime.ServeMuxOption) (http.Handler, error) {
     mux := runtime.NewServeMux(opts...)
     dialOpts := []grpc.DialOption{grpc.WithInsecure()}
-    err := proto.RegisterDistanceServerHandlerFromEndpoint(ctx, mux, *distanceEndpoint, dialOpts)
+    err := pb.RegisterDistanceServerHandlerFromEndpoint(ctx, mux, *distanceEndpoint, dialOpts)
     if err != nil {
         return nil, err
     }

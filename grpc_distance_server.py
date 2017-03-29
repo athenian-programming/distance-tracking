@@ -10,10 +10,10 @@ from grpc_support import GenericServer
 from utils import current_time_millis
 from utils import setup_logging
 
-from pb.distance_server_pb2 import Distance
-from pb.distance_server_pb2 import DistanceServerServicer
-from pb.distance_server_pb2 import ServerInfo
-from pb.distance_server_pb2 import add_DistanceServerServicer_to_server
+from proto.distance_service_pb2 import Distance
+from proto.distance_service_pb2 import DistanceServerServicer
+from proto.distance_service_pb2 import ServerInfo
+from proto.distance_service_pb2 import add_DistanceServerServicer_to_server
 
 logger = logging.getLogger(__name__)
 
