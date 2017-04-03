@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import json
 import logging
 import socket
@@ -33,7 +32,8 @@ class HttpDistanceClient(SingleValueClient):
         while not self.stopped:
             try:
                 logger.info("Connecting to HTTP server at {0}...".format(self.hostname))
-                response = requests.get(self.hostname + "/v1/distances", headers={"cache-control": "no-cache"},
+                response = requests.get(self.hostname + "/v1/distances",
+                                        headers={"cache-control": "no-cache"},
                                         stream=True)
                 logger.info("Connected to HTTP server at {0}".format(self.hostname))
             except BaseException as e:

@@ -18,7 +18,7 @@ message Distance {
     int32 distance = 4;
 }
 
-service DistanceServer {
+service DistanceService {
 
     rpc registerClient (ClientInfo) returns (ServerInfo) {
     }

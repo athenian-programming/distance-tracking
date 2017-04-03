@@ -13,15 +13,17 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
+
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+
 
 DESCRIPTOR = _descriptor.FileDescriptor(
     name='proto/distance_service.proto',
     package='distance_server',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x1cproto/distance_service.proto\x12\x0f\x64istance_server\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"E\n\x08\x44istance\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x0f\n\x07\x65lapsed\x18\x03 \x01(\x03\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x32\x97\x02\n\x0e\x44istanceServer\x12L\n\x0eregisterClient\x12\x1b.distance_server.ClientInfo\x1a\x1b.distance_server.ServerInfo\"\x00\x12_\n\x0cgetDistances\x12\x1b.distance_server.ClientInfo\x1a\x19.distance_server.Distance\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/distances0\x01\x12V\n\x0bgetDistance\x12\x16.google.protobuf.Empty\x1a\x19.distance_server.Distance\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v1/distanceb\x06proto3')
+        '\n\x1cproto/distance_service.proto\x12\x0f\x64istance_server\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"E\n\x08\x44istance\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x0f\n\x07\x65lapsed\x18\x03 \x01(\x03\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x32\x98\x02\n\x0f\x44istanceService\x12L\n\x0eregisterClient\x12\x1b.distance_server.ClientInfo\x1a\x1b.distance_server.ServerInfo\"\x00\x12_\n\x0cgetDistances\x12\x1b.distance_server.ClientInfo\x1a\x19.distance_server.Distance\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/distances0\x01\x12V\n\x0bgetDistance\x12\x16.google.protobuf.Empty\x1a\x19.distance_server.Distance\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v1/distanceb\x06proto3')
     ,
     dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR, google_dot_protobuf_dot_empty__pb2.DESCRIPTOR, ])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -56,6 +58,7 @@ _CLIENTINFO = _descriptor.Descriptor(
     serialized_end=134,
 )
 
+
 _SERVERINFO = _descriptor.Descriptor(
     name='ServerInfo',
     full_name='distance_server.ServerInfo',
@@ -85,6 +88,7 @@ _SERVERINFO = _descriptor.Descriptor(
     serialized_start=136,
     serialized_end=162,
 )
+
 
 _DISTANCE = _descriptor.Descriptor(
     name='Distance',
@@ -162,6 +166,7 @@ Distance = _reflection.GeneratedProtocolMessageType('Distance', (_message.Messag
 ))
 _sym_db.RegisterMessage(Distance)
 
+
 try:
     # THESE ELEMENTS WILL BE DEPRECATED.
     # Please use the generated *_pb2_grpc.py files instead.
@@ -172,7 +177,7 @@ try:
     from grpc.beta import interfaces as beta_interfaces
 
 
-    class DistanceServerStub(object):
+    class DistanceServiceStub(object):
 
         def __init__(self, channel):
             """Constructor.
@@ -181,23 +186,23 @@ try:
               channel: A grpc.Channel.
             """
             self.registerClient = channel.unary_unary(
-                '/distance_server.DistanceServer/registerClient',
+                '/distance_server.DistanceService/registerClient',
                 request_serializer=ClientInfo.SerializeToString,
                 response_deserializer=ServerInfo.FromString,
             )
             self.getDistances = channel.unary_stream(
-                '/distance_server.DistanceServer/getDistances',
+                '/distance_server.DistanceService/getDistances',
                 request_serializer=ClientInfo.SerializeToString,
                 response_deserializer=Distance.FromString,
             )
             self.getDistance = channel.unary_unary(
-                '/distance_server.DistanceServer/getDistance',
+                '/distance_server.DistanceService/getDistance',
                 request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
                 response_deserializer=Distance.FromString,
             )
 
 
-    class DistanceServerServicer(object):
+    class DistanceServiceServicer(object):
 
         def registerClient(self, request, context):
             context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -215,7 +220,7 @@ try:
             raise NotImplementedError('Method not implemented!')
 
 
-    def add_DistanceServerServicer_to_server(servicer, server):
+    def add_DistanceServiceServicer_to_server(servicer, server):
         rpc_method_handlers = {
             'registerClient': grpc.unary_unary_rpc_method_handler(
                 servicer.registerClient,
@@ -234,11 +239,11 @@ try:
             ),
         }
         generic_handler = grpc.method_handlers_generic_handler(
-            'distance_server.DistanceServer', rpc_method_handlers)
+            'distance_server.DistanceService', rpc_method_handlers)
         server.add_generic_rpc_handlers((generic_handler,))
 
 
-    class BetaDistanceServerServicer(object):
+    class BetaDistanceServiceServicer(object):
         """The Beta API is deprecated for 0.15.0 and later.
     
         It is recommended to use the GA API (classes and functions in this
@@ -255,7 +260,7 @@ try:
             context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
-    class BetaDistanceServerStub(object):
+    class BetaDistanceServiceStub(object):
         """The Beta API is deprecated for 0.15.0 and later.
     
         It is recommended to use the GA API (classes and functions in this
@@ -276,28 +281,28 @@ try:
         getDistance.future = None
 
 
-    def beta_create_DistanceServer_server(servicer, pool=None, pool_size=None, default_timeout=None,
-                                          maximum_timeout=None):
+    def beta_create_DistanceService_server(servicer, pool=None, pool_size=None, default_timeout=None,
+                                           maximum_timeout=None):
         """The Beta API is deprecated for 0.15.0 and later.
     
         It is recommended to use the GA API (classes and functions in this
         file not marked beta) for all further purposes. This function was
         generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
         request_deserializers = {
-            ('distance_server.DistanceServer', 'getDistance'): google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            ('distance_server.DistanceServer', 'getDistances'): ClientInfo.FromString,
-            ('distance_server.DistanceServer', 'registerClient'): ClientInfo.FromString,
+            ('distance_server.DistanceService', 'getDistance'): google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            ('distance_server.DistanceService', 'getDistances'): ClientInfo.FromString,
+            ('distance_server.DistanceService', 'registerClient'): ClientInfo.FromString,
         }
         response_serializers = {
-            ('distance_server.DistanceServer', 'getDistance'): Distance.SerializeToString,
-            ('distance_server.DistanceServer', 'getDistances'): Distance.SerializeToString,
-            ('distance_server.DistanceServer', 'registerClient'): ServerInfo.SerializeToString,
+            ('distance_server.DistanceService', 'getDistance'): Distance.SerializeToString,
+            ('distance_server.DistanceService', 'getDistances'): Distance.SerializeToString,
+            ('distance_server.DistanceService', 'registerClient'): ServerInfo.SerializeToString,
         }
         method_implementations = {
-            ('distance_server.DistanceServer', 'getDistance'): face_utilities.unary_unary_inline(servicer.getDistance),
-            ('distance_server.DistanceServer', 'getDistances'): face_utilities.unary_stream_inline(
+            ('distance_server.DistanceService', 'getDistance'): face_utilities.unary_unary_inline(servicer.getDistance),
+            ('distance_server.DistanceService', 'getDistances'): face_utilities.unary_stream_inline(
                 servicer.getDistances),
-            ('distance_server.DistanceServer', 'registerClient'): face_utilities.unary_unary_inline(
+            ('distance_server.DistanceService', 'registerClient'): face_utilities.unary_unary_inline(
                 servicer.registerClient),
         }
         server_options = beta_implementations.server_options(request_deserializers=request_deserializers,
@@ -308,22 +313,22 @@ try:
         return beta_implementations.server(method_implementations, options=server_options)
 
 
-    def beta_create_DistanceServer_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+    def beta_create_DistanceService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
         """The Beta API is deprecated for 0.15.0 and later.
     
         It is recommended to use the GA API (classes and functions in this
         file not marked beta) for all further purposes. This function was
         generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
         request_serializers = {
-            ('distance_server.DistanceServer',
+            ('distance_server.DistanceService',
              'getDistance'): google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ('distance_server.DistanceServer', 'getDistances'): ClientInfo.SerializeToString,
-            ('distance_server.DistanceServer', 'registerClient'): ClientInfo.SerializeToString,
+            ('distance_server.DistanceService', 'getDistances'): ClientInfo.SerializeToString,
+            ('distance_server.DistanceService', 'registerClient'): ClientInfo.SerializeToString,
         }
         response_deserializers = {
-            ('distance_server.DistanceServer', 'getDistance'): Distance.FromString,
-            ('distance_server.DistanceServer', 'getDistances'): Distance.FromString,
-            ('distance_server.DistanceServer', 'registerClient'): ServerInfo.FromString,
+            ('distance_server.DistanceService', 'getDistance'): Distance.FromString,
+            ('distance_server.DistanceService', 'getDistances'): Distance.FromString,
+            ('distance_server.DistanceService', 'registerClient'): ServerInfo.FromString,
         }
         cardinalities = {
             'getDistance': cardinality.Cardinality.UNARY_UNARY,
@@ -334,7 +339,7 @@ try:
                                                          request_serializers=request_serializers,
                                                          response_deserializers=response_deserializers,
                                                          thread_pool=pool, thread_pool_size=pool_size)
-        return beta_implementations.dynamic_stub(channel, 'distance_server.DistanceServer', cardinalities,
+        return beta_implementations.dynamic_stub(channel, 'distance_server.DistanceService', cardinalities,
                                                  options=stub_options)
 except ImportError:
     pass

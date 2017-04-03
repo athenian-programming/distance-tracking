@@ -10,7 +10,7 @@ from grpc_support import grpc_url
 from utils import setup_logging
 
 from proto.distance_service_pb2 import ClientInfo
-from proto.distance_service_pb2 import DistanceServerStub
+from proto.distance_service_pb2 import DistanceServiceStub
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ class GrcpDistanceClient(object):
     def __init__(self, hostname):
         self.__url = grpc_url(hostname)
         channel = grpc.insecure_channel(self.__url)
-        self.__stub = DistanceServerStub(channel)
+        self.__stub = DistanceServiceStub(channel)
         self.__client_info = ClientInfo(info="{0} client".format(socket.gethostname()))
         self.__server_info = None
 

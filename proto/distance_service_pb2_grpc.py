@@ -5,7 +5,7 @@ import grpc
 import proto.distance_service_pb2 as proto_dot_distance__service__pb2
 
 
-class DistanceServerStub(object):
+class DistanceServiceStub(object):
     def __init__(self, channel):
         """Constructor.
     
@@ -13,23 +13,23 @@ class DistanceServerStub(object):
           channel: A grpc.Channel.
         """
         self.registerClient = channel.unary_unary(
-            '/distance_server.DistanceServer/registerClient',
+            '/distance_server.DistanceService/registerClient',
             request_serializer=proto_dot_distance__service__pb2.ClientInfo.SerializeToString,
             response_deserializer=proto_dot_distance__service__pb2.ServerInfo.FromString,
         )
         self.getDistances = channel.unary_stream(
-            '/distance_server.DistanceServer/getDistances',
+            '/distance_server.DistanceService/getDistances',
             request_serializer=proto_dot_distance__service__pb2.ClientInfo.SerializeToString,
             response_deserializer=proto_dot_distance__service__pb2.Distance.FromString,
         )
         self.getDistance = channel.unary_unary(
-            '/distance_server.DistanceServer/getDistance',
+            '/distance_server.DistanceService/getDistance',
             request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             response_deserializer=proto_dot_distance__service__pb2.Distance.FromString,
         )
 
 
-class DistanceServerServicer(object):
+class DistanceServiceServicer(object):
     def registerClient(self, request, context):
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -46,7 +46,7 @@ class DistanceServerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_DistanceServerServicer_to_server(servicer, server):
+def add_DistanceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
         'registerClient': grpc.unary_unary_rpc_method_handler(
             servicer.registerClient,
@@ -65,5 +65,5 @@ def add_DistanceServerServicer_to_server(servicer, server):
         ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'distance_server.DistanceServer', rpc_method_handlers)
+        'distance_server.DistanceService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))

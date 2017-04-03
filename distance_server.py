@@ -9,8 +9,7 @@ from constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, O
 from constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, GRPC_PORT_DEFAULT, GRPC_PORT, OOR_SIZE_DEFAULT
 from out_of_range_values import OutOfRangeValues
 from serial_reader import SerialReader
-from utils import setup_logging
-from utils import sleep
+from utils import setup_logging, waitForKeyboardInterrupt
 
 from grpc_distance_server import GrpcDistanceServer
 
@@ -30,6 +29,14 @@ class DistanceServer(object):
         self.__oor_values = OutOfRangeValues(size=oor_size)
         self.__oor_time = oor_time
         self.__oor_upper = oor_upper
+
+    def __enter__(self):
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.stop()
+        return self
 
     def start(self):
         try:
@@ -74,25 +81,14 @@ if __name__ == "__main__":
     # Setup logging
     setup_logging(level=args[LOG_LEVEL])
 
-    tracker = DistanceServer(grpc_port=args[GRPC_PORT],
-                             oor_size=args[OOR_SIZE],
-                             oor_time=args[OOR_TIME],
-                             oor_upper=args[OOR_UPPER])
-
-    serial_port = SerialReader.lookup_port(args[DEVICE_ID] if args.get(DEVICE_ID) else args[SERIAL_PORT])
-    serial_reader = SerialReader().start(func=tracker.fetch_data,
-                                         userdata=None,
-                                         port=serial_port,
-                                         baudrate=args[BAUD_RATE])
-
-    tracker.start()
-
-    try:
-        sleep()
-    except KeyboardInterrupt:
-        pass
-    finally:
-        tracker.stop()
-        serial_reader.stop()
+    with DistanceServer(grpc_port=args[GRPC_PORT],
+                        oor_size=args[OOR_SIZE],
+                        oor_time=args[OOR_TIME],
+                        oor_upper=args[OOR_UPPER]) as server:
+        with SerialReader(func=server.fetch_data,
+                          userdata=None,
+                          port=SerialReader.lookup_port(args[DEVICE_ID] if args.get(DEVICE_ID) else args[SERIAL_PORT]),
+                          baudrate=args[BAUD_RATE]):
+            waitForKeyboardInterrupt()
 
     logger.info("Exiting...")
