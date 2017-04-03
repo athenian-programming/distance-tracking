@@ -41,7 +41,7 @@ class GrcpDistanceClient(object):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
+        return self
 
     def value(self):
         return self.__stub.getDistance(Empty())
@@ -53,11 +53,10 @@ class GrcpDistanceClient(object):
 if __name__ == "__main__":
     setup_logging()
 
-    with GrcpDistanceClient("localhost") as distances:
+    with GrcpDistanceClient("localhost") as client:
         for i in range(10):
-            logger.info("Read value:\n{0}".format(distances.value()))
-
-        for d, i in zip(distances.values(), range(10)):
+            logger.info("Read value:\n{0}".format(client.value()))
+        for d, i in zip(client.values(), range(10)):
             logger.info("Read value:\n{0}".format(d))
 
     logger.info("Exiting...")

@@ -13,10 +13,8 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
-
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-
 
 DESCRIPTOR = _descriptor.FileDescriptor(
     name='proto/distance_service.proto',
@@ -58,7 +56,6 @@ _CLIENTINFO = _descriptor.Descriptor(
     serialized_end=134,
 )
 
-
 _SERVERINFO = _descriptor.Descriptor(
     name='ServerInfo',
     full_name='distance_server.ServerInfo',
@@ -88,7 +85,6 @@ _SERVERINFO = _descriptor.Descriptor(
     serialized_start=136,
     serialized_end=162,
 )
-
 
 _DISTANCE = _descriptor.Descriptor(
     name='Distance',
@@ -165,7 +161,6 @@ Distance = _reflection.GeneratedProtocolMessageType('Distance', (_message.Messag
     # @@protoc_insertion_point(class_scope:distance_server.Distance)
 ))
 _sym_db.RegisterMessage(Distance)
-
 
 try:
     # THESE ELEMENTS WILL BE DEPRECATED.
