@@ -38,6 +38,7 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
     @summary.time()
     def getDistances(self, request, context):
         client_info = request.info
+        # Update metrics
         c.labels(method='get', endpoint='/').inc()
         c.labels(method='post', endpoint='/submit').inc(2)
         return self.currval_generator(context.peer())
