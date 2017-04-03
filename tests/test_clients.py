@@ -24,7 +24,7 @@ class ClientTest(unittest.TestCase):
         cnt = 0
         for i in range(repeat):
             print("Iteration {0}".format(i))
-            with DistanceClient("localhost") as client:
+            with DistanceClient("127.0.0.1") as client:
                 for d, j in zip(client.values(), range(size)):
                     if print_vals:
                         print(d)
@@ -41,7 +41,7 @@ class ClientTest(unittest.TestCase):
         cnt = 0
         for i in range(repeat):
             print("Iteration: {0}".format(i))
-            with HttpDistanceClient("localhost:8080") as client:
+            with HttpDistanceClient("127.0.0.1:8080") as client:
                 for d, j in zip(client.values(), range(size)):
                     if print_vals:
                         print(d)
