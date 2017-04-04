@@ -34,11 +34,12 @@ install-go:
 #	go get -u github.com/golang/protobuf/protoc-gen-go
 #	go get -u github.com/golang/protobuf/proto
 
-http_proxy:
-	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
-
 test_client:
 	./http_distance_client.py
 
 test_server:
-	./grpc_distance_server.py --delay .1
+	./grpc_distance_server.py --delay .1 &
+
+http_proxy:
+	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
+
