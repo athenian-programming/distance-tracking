@@ -29,7 +29,7 @@ install:
 #  - make codegen
 
 before_script:
-#  - make test_server &
+  - make test_server &
   - make http_proxy &
   - sleep 5
 
