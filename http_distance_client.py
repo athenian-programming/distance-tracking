@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import logging
 import socket
 import time
 
+import cli_args as cli
 import requests
+from constants import LOG_LEVEL
 from grpc_support import SingleValueClient
 from utils import setup_logging
 
@@ -60,13 +63,18 @@ class HttpDistanceClient(SingleValueClient):
 
 
 if __name__ == "__main__":
-    setup_logging()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--host", dest="host", default="localhost:8080", help="Distance server hostname")
+    cli.verbose(parser)
+    args = vars(parser.parse_args())
+
+    setup_logging(level=args[LOG_LEVEL])
 
     cnt = 0
 
     for i in range(5):
         print("Iteration {0}".format(i))
-        with HttpDistanceClient("localhost:8080") as client:
+        with HttpDistanceClient(args["host"]) as client:
             for d, j in zip(client.values(), range(10)):
                 print(d)
                 cnt += 1
