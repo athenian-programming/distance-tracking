@@ -68,14 +68,14 @@ class DistanceServer(object):
 if __name__ == "__main__":
     # Parse CLI args
     parser = argparse.ArgumentParser()
-    cli.grpc_port(parser),
-    cli.device_id(parser),
+    cli.grpc_port(parser)
+    cli.device_id(parser)
     cli.serial_port(parser)
     cli.baud_rate(parser)
-    cli.oor_size(parser),
-    cli.oor_time(parser),
-    cli.oor_upper(parser),
-    cli.verbose(parser),
+    cli.oor_size(parser)
+    cli.oor_time(parser)
+    cli.oor_upper(parser)
+    cli.verbose(parser)
     args = vars(parser.parse_args())
 
     # Setup logging

@@ -10,7 +10,7 @@ from http_distance_client import HttpDistanceClient
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--url", dest="url", required=True, help="Distance server URL")
-    cli.verbose(parser),
+    cli.verbose(parser)
     args = vars(parser.parse_args())
 
     print("Starting...")
