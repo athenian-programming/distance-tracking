@@ -31,13 +31,13 @@ class HttpDistanceClient(SingleValueClient):
     def _get_values(self, pause_secs=2.0):
         while not self.stopped:
             try:
-                logger.info("Connecting to HTTP server at {0}...".format(self.hostname))
+                logger.info("Connecting to HTTP server at %s...", self.hostname)
                 response = requests.get(self.hostname + "/v1/distances",
                                         headers={"cache-control": "no-cache"},
                                         stream=True)
-                logger.info("Connected to HTTP server at {0}".format(self.hostname))
+                logger.info("Connected to HTTP server at %s", self.hostname)
             except BaseException as e:
-                logger.error("Failed to connect to HTTP server at {0} [{1}]".format(self.hostname, e))
+                logger.error("Failed to connect to HTTP server at %s [%s]", self.hostname, e)
                 time.sleep(pause_secs)
                 continue
 
@@ -53,10 +53,10 @@ class HttpDistanceClient(SingleValueClient):
                     if self.stopped:
                         break
             except BaseException as e:
-                logger.info("Error reading values from HTTP server at {0} [{1}]".format(self.hostname, e))
+                logger.info("Error reading values from HTTP server at %s [%s]", self.hostname, e)
                 time.sleep(pause_secs)
 
-            logger.info("Disconnected from HTTP server at {0}".format(self.hostname))
+            logger.info("Disconnected from HTTP server at %s", self.hostname)
 
 
 if __name__ == "__main__":

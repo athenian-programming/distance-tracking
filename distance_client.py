@@ -33,9 +33,9 @@ class DistanceClient(SingleValueClient):
                     if self.stopped:
                         break
             except BaseException as e:
-                logger.info("Error reading values from gRPC server at {0} [{1}]".format(self.hostname, e))
+                logger.info("Error reading values from gRPC server at %s [%s]", self.hostname, e)
                 time.sleep(pause_secs)
-            logger.info("Disconnected from gRPC server at {0}".format(self.hostname))
+            logger.info("Disconnected from gRPC server at %s", self.hostname)
 
 
 if __name__ == "__main__":

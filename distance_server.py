@@ -42,7 +42,7 @@ class DistanceServer(object):
         try:
             self.__distance_server.start()
         except BaseException as e:
-            logger.error("Unable to start distance server [{0}]".format(e), exc_info=True)
+            logger.error("Unable to start distance server [%s]", e, exc_info=True)
             sys.exit(1)
 
     def stop(self):

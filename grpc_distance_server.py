@@ -29,7 +29,7 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
         self.grpc_server = None
 
     def registerClient(self, request, context):
-        logger.info("Connected to {0} client {1} [{2}]".format(self.desc, context.peer(), request.info))
+        logger.info("Connected to %s client %s [%s]", self.desc, context.peer(), request.info)
         return ServerInfo(info="Server invoke count {0}".format(self.increment_cnt()))
 
     def getDistance(self, request, context):
@@ -52,7 +52,7 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
         return currval
 
     def _start_server(self):
-        logger.info("Starting gRPC {0} listening on {1}".format(self.desc, self.hostname))
+        logger.info("Starting gRPC %s listening on %s", self.desc, self.hostname)
         self.grpc_server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
         add_DistanceServiceServicer_to_server(self, self.grpc_server)
         self.grpc_server.add_insecure_port(self.hostname)
