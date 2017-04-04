@@ -74,6 +74,23 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
                                       distance=distance))
 
 
+stopped = False
+
+
+def run_server(delay):
+    with GrpcDistanceServer() as server:
+        cnt = 0
+        while not stopped:
+            server.write_distance(cnt)
+            cnt += 1
+            time.sleep(delay)
+
+
+def stop_server():
+    global stopped
+    stopped = True
+
+
 if __name__ == "__main__":
     setup_logging()
 
@@ -86,9 +103,4 @@ if __name__ == "__main__":
     if args["metrics"]:
         start_http_server(8000)
 
-    with GrpcDistanceServer() as server:
-        cnt = 0
-        while True:
-            server.write_distance(cnt)
-            cnt += 1
-            time.sleep(args["delay"])
+    run_server(args["delay"])

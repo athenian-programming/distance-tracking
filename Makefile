@@ -38,8 +38,8 @@ test_client:
 	./http_distance_client.py
 
 test_server:
-	./grpc_distance_server.py --delay .1 &
+	./grpc_distance_server.py --delay .1
 
 http_proxy:
-	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true &
+	go run http_proxy.go -stderrthreshold=INFO -logtostderr=true
 

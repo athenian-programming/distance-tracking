@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/athenian-robotics/distance-tracking.svg?branch=master)](https://travis-ci.org/athenian-robotics/distance-tracking)
+[![Code Health](https://landscape.io/github/athenian-robotics/distance-tracking/master/landscape.svg?style=flat)](https://landscape.io/github/athenian-robotics/distance-tracking/master)
+
 # Distance Tracking
 
 ## Setup

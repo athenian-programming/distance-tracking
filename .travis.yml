@@ -29,10 +29,10 @@ install:
 #  - make codegen
 
 before_script:
-  - make test_server
-  - make http_proxy
+#  - make test_server &
+  - make http_proxy &
   - sleep 5
 
 script:
-  - python -m unittest discover -s ./tests -p test_clients.py
+  - python -m unittest discover -v -s ./tests -p test_clients.py
 
