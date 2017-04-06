@@ -76,10 +76,6 @@
           "type": "string",
           "format": "int64"
         },
-        "elapsed": {
-          "type": "string",
-          "format": "int64"
-        },
         "distance": {
           "type": "integer",
           "format": "int32"

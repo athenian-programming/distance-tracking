@@ -15,14 +15,13 @@ logger = logging.getLogger(__name__)
 
 
 class Distance(object):
-    def __init__(self, id, ts, elapsed, distance):
+    def __init__(self, id, ts, distance):
         self.id = id
         self.ts = ts
-        self.elapsed = elapsed
         self.distance = distance
 
     def __str__(self):
-        return "id: {0}\nts: {1}\nelapsed: {2}\ndistance: {3}\n".format(self.id, self.ts, self.elapsed, self.distance)
+        return "id: {0}\nts: {1}\ndistance: {2}\n".format(self.id, self.ts, self.distance)
 
 
 class HttpDistanceClient(SingleValueClient):
@@ -50,7 +49,6 @@ class HttpDistanceClient(SingleValueClient):
                     with self.value_lock:
                         self.currval = Distance(id=int(val["id"]),
                                                 ts=int(val["ts"]),
-                                                elapsed=int(val["elapsed"]),
                                                 distance=int(val["distance"]))
                     self._mark_ready()
                     if self.stopped:

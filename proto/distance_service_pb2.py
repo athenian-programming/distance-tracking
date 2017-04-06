@@ -13,15 +13,17 @@ from google.protobuf import symbol_database as _symbol_database
 
 _sym_db = _symbol_database.Default()
 
+
 from google.api import annotations_pb2 as google_dot_api_dot_annotations__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+
 
 DESCRIPTOR = _descriptor.FileDescriptor(
     name='proto/distance_service.proto',
     package='distance_server',
     syntax='proto3',
     serialized_pb=_b(
-        '\n\x1cproto/distance_service.proto\x12\x0f\x64istance_server\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"E\n\x08\x44istance\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x0f\n\x07\x65lapsed\x18\x03 \x01(\x03\x12\x10\n\x08\x64istance\x18\x04 \x01(\x05\x32\x98\x02\n\x0f\x44istanceService\x12L\n\x0eregisterClient\x12\x1b.distance_server.ClientInfo\x1a\x1b.distance_server.ServerInfo\"\x00\x12_\n\x0cgetDistances\x12\x1b.distance_server.ClientInfo\x1a\x19.distance_server.Distance\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/distances0\x01\x12V\n\x0bgetDistance\x12\x16.google.protobuf.Empty\x1a\x19.distance_server.Distance\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v1/distanceb\x06proto3')
+        '\n\x1cproto/distance_service.proto\x12\x0f\x64istance_server\x1a\x1cgoogle/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x1a\n\nClientInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"\x1a\n\nServerInfo\x12\x0c\n\x04info\x18\x01 \x01(\t\"4\n\x08\x44istance\x12\n\n\x02id\x18\x01 \x01(\x05\x12\n\n\x02ts\x18\x02 \x01(\x03\x12\x10\n\x08\x64istance\x18\x03 \x01(\x05\x32\x98\x02\n\x0f\x44istanceService\x12L\n\x0eregisterClient\x12\x1b.distance_server.ClientInfo\x1a\x1b.distance_server.ServerInfo\"\x00\x12_\n\x0cgetDistances\x12\x1b.distance_server.ClientInfo\x1a\x19.distance_server.Distance\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/v1/distances0\x01\x12V\n\x0bgetDistance\x12\x16.google.protobuf.Empty\x1a\x19.distance_server.Distance\"\x14\x82\xd3\xe4\x93\x02\x0e\x12\x0c/v1/distanceb\x06proto3')
     ,
     dependencies=[google_dot_api_dot_annotations__pb2.DESCRIPTOR, google_dot_protobuf_dot_empty__pb2.DESCRIPTOR, ])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -56,6 +58,7 @@ _CLIENTINFO = _descriptor.Descriptor(
     serialized_end=134,
 )
 
+
 _SERVERINFO = _descriptor.Descriptor(
     name='ServerInfo',
     full_name='distance_server.ServerInfo',
@@ -86,6 +89,7 @@ _SERVERINFO = _descriptor.Descriptor(
     serialized_end=162,
 )
 
+
 _DISTANCE = _descriptor.Descriptor(
     name='Distance',
     full_name='distance_server.Distance',
@@ -108,15 +112,8 @@ _DISTANCE = _descriptor.Descriptor(
             is_extension=False, extension_scope=None,
             options=None),
         _descriptor.FieldDescriptor(
-            name='elapsed', full_name='distance_server.Distance.elapsed', index=2,
-            number=3, type=3, cpp_type=2, label=1,
-            has_default_value=False, default_value=0,
-            message_type=None, enum_type=None, containing_type=None,
-            is_extension=False, extension_scope=None,
-            options=None),
-        _descriptor.FieldDescriptor(
-            name='distance', full_name='distance_server.Distance.distance', index=3,
-            number=4, type=5, cpp_type=1, label=1,
+            name='distance', full_name='distance_server.Distance.distance', index=2,
+            number=3, type=5, cpp_type=1, label=1,
             has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
@@ -134,7 +131,7 @@ _DISTANCE = _descriptor.Descriptor(
     oneofs=[
     ],
     serialized_start=164,
-    serialized_end=233,
+    serialized_end=216,
 )
 
 DESCRIPTOR.message_types_by_name['ClientInfo'] = _CLIENTINFO
@@ -161,6 +158,7 @@ Distance = _reflection.GeneratedProtocolMessageType('Distance', (_message.Messag
     # @@protoc_insertion_point(class_scope:distance_server.Distance)
 ))
 _sym_db.RegisterMessage(Distance)
+
 
 try:
     # THESE ELEMENTS WILL BE DEPRECATED.

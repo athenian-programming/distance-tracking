@@ -46,11 +46,6 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
     def _init_values_on_start(self):
         self.write_distance(-1)
 
-    def _adjust_currval(self, currval, start_time):
-        if currval:
-            currval.elapsed = current_time_millis() - start_time
-        return currval
-
     def _start_server(self):
         logger.info("Starting gRPC %s listening on %s", self.desc, self.hostname)
         self.grpc_server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -70,7 +65,6 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
             self.id += 1
             self.set_currval(Distance(id=self.id,
                                       ts=current_time_millis(),
-                                      elapsed=0,
                                       distance=distance))
 
 

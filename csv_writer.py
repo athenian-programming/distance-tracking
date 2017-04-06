@@ -16,9 +16,12 @@ if __name__ == "__main__":
 
     print("Starting...")
     with open(args["file"], 'w') as f, HttpDistanceClient(args["url"]) as client:
+        init_time = None
         for i in range(10):
             dist = client.value()
-            val = "{0}, {1}".format(dist.elapsed, dist.distance)
+            if not init_time:
+                init_time = dist.ts
+            val = "{0}, {1}".format(dist.ts - init_time, dist.distance)
             f.write(val + "\n")
             print(val)
     print("Exited...")
