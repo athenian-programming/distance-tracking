@@ -8,6 +8,7 @@ import grpc
 from concurrent import futures
 from grpc_support import GenericServer
 from prometheus_client import Counter
+from prometheus_client import Histogram
 from prometheus_client import start_http_server
 from utils import current_time_millis
 from utils import setup_logging
@@ -21,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 REQUEST_COUNTER = Counter('getDistances_request_type_count', 'getDistances() request type count',
                           ['method', 'endpoint'])
+VALUE_HIST = Histogram('distance_value', 'Distance values histogram')
 
 
 class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
@@ -62,6 +64,7 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
     def write_distance(self, distance):
         if not self.stopped:
             self.id += 1
+            VALUE_HIST.observe(distance)
             self.set_currval(Distance(id=self.id,
                                       ts=current_time_millis(),
                                       distance=distance))
