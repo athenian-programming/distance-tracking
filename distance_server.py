@@ -8,6 +8,7 @@ import cli_args as cli
 from constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
 from constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, GRPC_PORT_DEFAULT, GRPC_PORT, OOR_SIZE_DEFAULT
 from out_of_range_values import OutOfRangeValues
+from prometheus_client import start_http_server
 from serial_reader import SerialReader
 from utils import setup_logging, waitForKeyboardInterrupt
 
@@ -80,6 +81,9 @@ if __name__ == "__main__":
 
     # Setup logging
     setup_logging(level=args[LOG_LEVEL])
+
+    # Start up a server to expose the metrics.
+    start_http_server(8000)
 
     with DistanceServer(grpc_port=args[GRPC_PORT],
                         oor_size=args[OOR_SIZE],

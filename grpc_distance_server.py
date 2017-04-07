@@ -90,11 +90,9 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--delay", type=float, default=1.0, help="Delay secs")
-    parser.add_argument("--metrics", default=False, action="store_true", help="Enable metrics")
     args = vars(parser.parse_args())
 
     # Start up a server to expose the metrics.
-    if args["metrics"]:
-        start_http_server(8000)
+    start_http_server(8000)
 
     run_server(args["delay"])
