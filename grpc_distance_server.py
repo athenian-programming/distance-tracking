@@ -8,7 +8,7 @@ import grpc
 from concurrent import futures
 from grpc_support import GenericServer
 from prometheus_client import Counter
-from prometheus_client import start_http_server, Summary
+from prometheus_client import start_http_server
 from utils import current_time_millis
 from utils import setup_logging
 
@@ -19,8 +19,8 @@ from proto.distance_service_pb2 import add_DistanceServiceServicer_to_server
 
 logger = logging.getLogger(__name__)
 
-summary = Summary('request_processing_seconds', 'Time spent processing request')
-c = Counter('currvals_counter', 'Description of currvalls_counter', ['method', 'endpoint'])
+REQUEST_COUNTER = Counter('getDistances_request_type_count', 'getDistances() request type count',
+                          ['method', 'endpoint'])
 
 
 class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
@@ -33,14 +33,13 @@ class GrpcDistanceServer(DistanceServiceServicer, GenericServer):
         return ServerInfo(info="Server invoke count {0}".format(self.increment_cnt()))
 
     def getDistance(self, request, context):
+        REQUEST_COUNTER.labels(method='get', endpoint='/v1/distance').inc()
         return self.get_currval()
 
-    @summary.time()
     def getDistances(self, request, context):
         client_info = request.info
         # Update metrics
-        c.labels(method='get', endpoint='/').inc()
-        c.labels(method='post', endpoint='/submit').inc(2)
+        REQUEST_COUNTER.labels(method='get', endpoint='/v1/distances').inc()
         return self.currval_generator(context.peer())
 
     def _init_values_on_start(self):
