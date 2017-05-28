@@ -2,6 +2,7 @@
 
 import argparse
 import logging
+from threading import Thread
 
 import cli_args as cli
 from constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
@@ -44,7 +45,8 @@ class DistanceServer(object):
         def distance():
             return response(self.__currval if self.__currval else -1)
 
-        flask.run(host="0.0.0.0", port=9000)
+        # flask.run(host="0.0.0.0", port=9000)
+        Thread(target=flask.run, args=("0.0.0.0", 9000)).start()
 
     def stop(self):
         pass
