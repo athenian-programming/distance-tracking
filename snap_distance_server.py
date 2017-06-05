@@ -45,7 +45,6 @@ class DistanceServer(object):
         def distance():
             return response(self.__currval if self.__currval else -1)
 
-        # flask.run(host="0.0.0.0", port=9000)
         Thread(target=flask.run, args=("0.0.0.0", 9000)).start()
 
     def stop(self):
