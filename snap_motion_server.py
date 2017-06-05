@@ -110,7 +110,6 @@ def fetch_data(val, userdata):
 if __name__ == "__main__":
     # Parse CLI args
     parser = argparse.ArgumentParser()
-    cli.mqtt_host(parser)
     cli.device_id(parser)
     cli.serial_port(parser)
     cli.baud_rate(parser)
