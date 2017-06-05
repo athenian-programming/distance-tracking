@@ -64,7 +64,7 @@ def fetch_data(val, userdata):
         logger.info("Non-data: %s", val)
     else:
         try:
-            logger.info("Vals: %s", val)
+            # logger.info("Vals: %s", val)
             vals = val.split("\t")
 
             x_val = vals[0]
@@ -76,7 +76,7 @@ def fetch_data(val, userdata):
             z_val = vals[2]
             curr_z = round(float(z_val.split(": ")[1]), 1)
 
-            logger.info("x: %d, y: %d, z: %d", curr_x, curr_y, curr_z)
+            #logger.info("x: %d, y: %d, z: %d", curr_x, curr_y, curr_z)
 
             if not calibrated_by_values:
                 # The arduino sketch includes a "! " prefix to SYS if the data is not calibrated (and thus not reliable)
