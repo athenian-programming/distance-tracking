@@ -4,15 +4,15 @@ import argparse
 import logging
 from threading import Thread
 
-import cli_args as cli
-from constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
-from constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, OOR_SIZE_DEFAULT
+import arc852.cli_args as cli
+from arc852.constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
+from arc852.constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, OOR_SIZE_DEFAULT
+from arc852.out_of_range_values import OutOfRangeValues
+from arc852.serial_reader import SerialReader
+from arc852.utils import setup_logging, waitForKeyboardInterrupt
 from flask import Flask
 from flask import make_response
-from out_of_range_values import OutOfRangeValues
 from prometheus_client import start_http_server
-from serial_reader import SerialReader
-from utils import setup_logging, waitForKeyboardInterrupt
 
 logger = logging.getLogger(__name__)
 
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     cli.oor_size(parser)
     cli.oor_time(parser)
     cli.oor_upper(parser)
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     # Setup logging

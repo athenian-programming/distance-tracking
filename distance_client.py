@@ -5,10 +5,10 @@ import logging
 import socket
 import time
 
-import cli_args as cli
-from constants import LOG_LEVEL
-from grpc_support import CannotConnectException, SingleValueClient
-from utils import setup_logging
+import arc852.cli_args as cli
+from arc852.constants import LOG_LEVEL
+from arc852.grpc_support import CannotConnectException, SingleValueClient
+from arc852.utils import setup_logging
 
 from grpc_distance_client import GrcpDistanceClient
 
@@ -44,7 +44,7 @@ class DistanceClient(SingleValueClient):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", dest="host", default="localhost", help="Distance server hostname")
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     setup_logging(level=args[LOG_LEVEL])

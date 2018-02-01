@@ -4,12 +4,12 @@ import argparse
 import logging
 from threading import Lock
 
-import cli_args as cli
-from constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID
+import arc852.cli_args as cli
+from arc852.constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID
+from arc852.serial_reader import SerialReader
+from arc852.utils import setup_logging
 from flask import Flask
 from flask import make_response
-from serial_reader import SerialReader
-from utils import setup_logging
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     cli.device_id(parser)
     cli.serial_port(parser)
     cli.baud_rate(parser)
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     # Setup logging

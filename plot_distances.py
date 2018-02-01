@@ -3,13 +3,13 @@ import datetime
 import logging
 import time
 
-import cli_args as cli
+import arc852.cli_args as cli
 import plotly.graph_objs as go
 import plotly.plotly as py
 import plotly.tools as tls
-from constants import LOG_LEVEL
-from grpc_support import TimeoutException
-from utils import setup_logging
+from arc852.constants import LOG_LEVEL
+from arc852.grpc_support import TimeoutException
+from arc852.utils import setup_logging
 
 from http_distance_client import HttpDistanceClient
 
@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # Parse CLI args
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--url", dest="url", default="localhost:8080", help="Distance server URL")
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     # Setup logging

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-import cli_args as cli
+import arc852.cli_args as cli
 
 from http_distance_client import HttpDistanceClient
 
@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--url", dest="url", default="localhost:8080", help="Distance server URL")
     parser.add_argument("-f", "--file", dest="file", required=True, help="CSV filename")
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     print("Starting...")

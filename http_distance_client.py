@@ -5,11 +5,11 @@ import logging
 import socket
 import time
 
-import cli_args as cli
+import arc852.cli_args as cli
 import requests
-from constants import LOG_LEVEL
-from grpc_support import SingleValueClient
-from utils import setup_logging
+from arc852.constants import LOG_LEVEL
+from arc852.grpc_support import SingleValueClient
+from arc852.utils import setup_logging
 
 logger = logging.getLogger(__name__)
 
@@ -63,7 +63,7 @@ class HttpDistanceClient(SingleValueClient):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", dest="host", default="localhost:8080", help="Distance server hostname")
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     setup_logging(level=args[LOG_LEVEL])

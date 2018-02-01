@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 
-import cli_args as cli
+import arc852.cli_args as cli
 
 from http_distance_client import HttpDistanceClient
 
@@ -10,7 +10,7 @@ from http_distance_client import HttpDistanceClient
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--url", dest="url", required=True, help="Distance server URL")
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     print("Starting...")

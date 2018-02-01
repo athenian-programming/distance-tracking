@@ -4,13 +4,14 @@ import argparse
 import logging
 import sys
 
-import cli_args as cli
-from constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
-from constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, GRPC_PORT_DEFAULT, GRPC_PORT, OOR_SIZE_DEFAULT
-from out_of_range_values import OutOfRangeValues
+import arc852.cli_args as cli
+from arc852.constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
+from arc852.constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, GRPC_PORT_DEFAULT, GRPC_PORT, \
+    OOR_SIZE_DEFAULT
+from arc852.out_of_range_values import OutOfRangeValues
+from arc852.serial_reader import SerialReader
+from arc852.utils import setup_logging, waitForKeyboardInterrupt
 from prometheus_client import start_http_server
-from serial_reader import SerialReader
-from utils import setup_logging, waitForKeyboardInterrupt
 
 from grpc_distance_server import GrpcDistanceServer
 
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     cli.oor_size(parser)
     cli.oor_time(parser)
     cli.oor_upper(parser)
-    cli.verbose(parser)
+    cli.log_level(parser)
     args = vars(parser.parse_args())
 
     # Setup logging
