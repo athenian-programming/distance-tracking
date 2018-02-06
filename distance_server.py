@@ -5,9 +5,9 @@ import logging
 import sys
 
 import arc852.cli_args as cli
+from arc852.constants import DEVICE_ID, GRPC_PORT_DEFAULT, GRPC_PORT, OOR_SIZE_DEFAULT
 from arc852.constants import OOR_SIZE, OOR_TIME_DEFAULT, OOR_TIME, OOR_UPPER_DEFAULT, OOR_UPPER
-from arc852.constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL, DEVICE_ID, GRPC_PORT_DEFAULT, GRPC_PORT, \
-    OOR_SIZE_DEFAULT
+from arc852.constants import SERIAL_PORT, BAUD_RATE, LOG_LEVEL
 from arc852.out_of_range_values import OutOfRangeValues
 from arc852.serial_reader import SerialReader
 from arc852.utils import setup_logging, waitForKeyboardInterrupt
@@ -67,7 +67,7 @@ class DistanceServer(object):
             self.__distance_server.write_distance(mm)
 
 
-if __name__ == "__main__":
+def main():
     # Parse CLI args
     parser = argparse.ArgumentParser()
     cli.grpc_port(parser)
@@ -97,3 +97,7 @@ if __name__ == "__main__":
             waitForKeyboardInterrupt()
 
     logger.info("Exiting...")
+
+
+if __name__ == "__main__":
+    main()

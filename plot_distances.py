@@ -15,7 +15,8 @@ from http_distance_client import HttpDistanceClient
 
 logger = logging.getLogger(__name__)
 
-if __name__ == "__main__":
+
+def main():
     # Parse CLI args
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--url", dest="url", default="localhost:8080", help="Distance server URL")
@@ -72,3 +73,7 @@ if __name__ == "__main__":
         stream.close()
 
     logger.info("Exiting...")
+
+
+if __name__ == "__main__":
+    main()

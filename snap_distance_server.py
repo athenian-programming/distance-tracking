@@ -75,7 +75,7 @@ def response(val=""):
     return resp
 
 
-if __name__ == "__main__":
+def main():
     # Parse CLI args
     parser = argparse.ArgumentParser()
     cli.grpc_port(parser)
@@ -104,3 +104,7 @@ if __name__ == "__main__":
             waitForKeyboardInterrupt()
 
     logger.info("Exiting...")
+
+
+if __name__ == "__main__":
+    main()

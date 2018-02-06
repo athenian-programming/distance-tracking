@@ -5,9 +5,10 @@ import arc852.cli_args as cli
 
 from http_distance_client import HttpDistanceClient
 
+
 # Run this with python3 to get print() to flush properly
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-u", "--url", dest="url", required=True, help="Distance server URL")
     cli.log_level(parser)
@@ -18,3 +19,7 @@ if __name__ == "__main__":
         for i in range(10):
             print(client.value())
     print("Exited...")
+
+
+if __name__ == "__main__":
+    main()

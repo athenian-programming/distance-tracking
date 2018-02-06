@@ -50,7 +50,7 @@ class GrcpDistanceClient(object):
         return self.__stub.getDistances(self.__client_info)
 
 
-if __name__ == "__main__":
+def main():
     setup_logging()
 
     with GrcpDistanceClient("localhost") as client:
@@ -60,3 +60,7 @@ if __name__ == "__main__":
             logger.info("Read value:\n%s", d)
 
     logger.info("Exiting...")
+
+
+if __name__ == "__main__":
+    main()

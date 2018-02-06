@@ -60,7 +60,7 @@ class HttpDistanceClient(SingleValueClient):
             logger.info("Disconnected from HTTP server at %s", self.hostname)
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", dest="host", default="localhost:8080", help="Distance server hostname")
     cli.log_level(parser)
@@ -84,3 +84,7 @@ if __name__ == "__main__":
     assert cnt == 5 * 10 * 2
 
     print("Exiting...")
+
+
+if __name__ == "__main__":
+    main()

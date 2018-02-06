@@ -87,7 +87,7 @@ def stop_server():
     stopped = True
 
 
-if __name__ == "__main__":
+def main():
     setup_logging()
 
     parser = argparse.ArgumentParser()
@@ -98,3 +98,7 @@ if __name__ == "__main__":
     start_http_server(8000)
 
     run_server(args["delay"])
+
+
+if __name__ == "__main__":
+    main()
